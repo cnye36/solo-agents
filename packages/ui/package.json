@@ -1,0 +1,17 @@
+{
+  "name": "@solo-agents/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^5"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "lint": "echo \"No package lint step\"",
+    "typecheck": "pnpm exec tsc -p tsconfig.json --noEmit"
+  }
+}

@@ -1,0 +1,28 @@
+type FeatureCardProps = {
+  title: string;
+  description: string;
+  footer?: string;
+  children?: React.ReactNode;
+};
+
+export function FeatureCard({
+  title,
+  description,
+  footer,
+  children,
+}: FeatureCardProps) {
+  return (
+    <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[0_20px_80px_rgba(15,23,42,0.35)] backdrop-blur">
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold text-white">{title}</h2>
+        <p className="text-sm leading-6 text-slate-300">{description}</p>
+      </div>
+      {children ? <div className="mt-5">{children}</div> : null}
+      {footer ? (
+        <p className="mt-5 border-t border-[var(--border)] pt-4 text-xs leading-5 text-[var(--muted)]">
+          {footer}
+        </p>
+      ) : null}
+    </section>
+  );
+}

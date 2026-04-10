@@ -1,0 +1,19 @@
+{
+  "name": "@solo-agents/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@solo-agents/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "echo \"No package lint step\"",
+    "typecheck": "pnpm exec tsc -p tsconfig.json --noEmit"
+  }
+}

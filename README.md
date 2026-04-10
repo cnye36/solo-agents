@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solo Agents
 
-## Getting Started
+This repo is now structured as a clean monorepo:
 
-First, run the development server:
+- `apps/web`: Next.js product app for the single-assistant experience
+- `apps/api`: thin backend/BFF that talks to the existing AffinityBots platform
+- `packages/config`: shared app metadata and typed config constants
+- `packages/types`: shared DTO and domain types
+- `packages/ui`: shared UI package placeholder
+
+## Local Development
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the product web app:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev:web
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the backend/BFF:
 
-## Learn More
+```bash
+pnpm dev:api
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Boundaries
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Frontend-safe values belong in `apps/web/.env.local`, for example:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_API_BASE_URL`
+- `NEXT_PUBLIC_APP_URL`
 
-## Deploy on Vercel
+Private values belong in `apps/api/.env`, for example:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `POSTGRES_URI`
+- `LANGGRAPH_API_URL`
+- `LANGSMITH_API_KEY`
+- billing/provider secrets
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do not place private backend credentials in the web app.
