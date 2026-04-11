@@ -3,17 +3,8 @@ name: mobile-eas
 on:
   workflow_dispatch:
     inputs:
-      platform:
-        description: Target platform
-        required: true
-        default: all
-        type: choice
-        options:
-          - android
-          - ios
-          - all
       profile:
-        description: EAS build profile
+        description: EAS build profile (Android only)
         required: true
         default: preview
         type: choice
@@ -58,15 +49,14 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Run EAS build
+      - name: Run EAS build (Android)
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
-          PLATFORM="${{ github.event.inputs.platform || 'all' }}"
-          PROFILE="${{ github.event.inputs.profile || 'preview' }}"
-          if [ "$PLATFORM" = "all" ]; then
-            eas build --non-interactive --profile "$PROFILE" --platform all
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PROFILE="${{ github.event.inputs.profile }}"
           else
-            eas build --non-interactive --profile "$PROFILE" --platform "$PLATFORM"
+            PROFILE="preview"
           fi
+          eas build --non-interactive --profile "$PROFILE" --platform android
