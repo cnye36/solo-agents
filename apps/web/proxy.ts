@@ -1,27 +1,17 @@
-import { NextResponse, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
 
+/**
+ * Session refresh + cookie sync for Supabase SSR.
+ *
+ * Do not gate auth with a custom cookie name (e.g. `sb-access-token`). The
+ * `@supabase/ssr` client stores chunked cookies like `sb-<ref>-auth-token`.
+ * Wrong checks cause redirect loops or block navigation after sign-in.
+ *
+ * Protected routes enforce auth in route layouts via `getUser()`.
+ */
 export async function proxy(request: NextRequest) {
-  const response = await updateSession(request);
-  const pathname = request.nextUrl.pathname;
-  const accessToken = request.cookies.get("sb-access-token");
-
-  const isProtectedRoute =
-    pathname.startsWith("/chat") ||
-    pathname.startsWith("/history") ||
-    pathname.startsWith("/integrations") ||
-    pathname.startsWith("/files") ||
-    pathname.startsWith("/preferences") ||
-    pathname.startsWith("/account") ||
-    pathname.startsWith("/onboarding");
-
-  if (isProtectedRoute && !accessToken) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
-
-  return response;
+  return updateSession(request);
 }
 
 export const config = {

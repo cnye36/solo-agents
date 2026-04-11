@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getPrimaryAssistant } from "@/services/platform-data";
+import { ensurePrimaryAssistant, getPrimaryAssistant } from "@/services/platform-data";
 import { requireUser } from "@/lib/auth";
 
 export const assistantRoutes = new Hono();
@@ -11,7 +11,7 @@ assistantRoutes.get("/", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const assistant = await getPrimaryAssistant(user.id);
+  const assistant = await ensurePrimaryAssistant(user);
   return c.json({ assistant });
 });
 
@@ -22,17 +22,22 @@ assistantRoutes.post("/provision", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const assistant = await getPrimaryAssistant(user.id);
+  const existingAssistant = await getPrimaryAssistant(user.id);
 
-  if (assistant) {
-    return c.json({ assistant }, 200);
+  if (existingAssistant) {
+    return c.json({ assistant: existingAssistant }, 200);
   }
 
-  return c.json(
-    {
-      error:
-        "Automatic assistant provisioning is not wired yet. The next step is to connect this endpoint to the existing assistant creation flow.",
-    },
-    501,
-  );
+  const assistant = await ensurePrimaryAssistant(user);
+
+  if (!assistant) {
+    return c.json(
+      {
+        error: "Assistant provisioning is not configured yet.",
+      },
+      503,
+    );
+  }
+
+  return c.json({ assistant }, 201);
 });

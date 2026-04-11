@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Solo Agents",
+    "slug": "solo-agents-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "soloagents",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.soloagents.mobile"
+    },
+    "android": {
+      "package": "com.soloagents.mobile",
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#060816"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f99abc88-0ddc-4cab-a5ad-df1c6c79141f"
+      }
+    },
+    "owner": "solo-agents-project"
+  }
+}

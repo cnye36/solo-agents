@@ -1,7 +1,16 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import type { AssistantSummary, ThreadSummary } from "@solo-agents/types";
-import { FeatureCard } from "@/components/ui/feature-card";
-import { PageHeader } from "@/components/ui/page-header";
-import { StatusBadge } from "@/components/ui/status-badge";
+import { trimPreview } from "@/features/chat/chat-format";
+import { Composer } from "@/features/chat/composer";
+import { ThreadSidebar } from "@/features/chat/thread-sidebar";
+import { ThreadView } from "@/features/chat/thread-view";
+import type {
+  AttachmentDraft,
+  ChatMessage,
+} from "@/features/chat/chat-types";
+import { sendMessageStream } from "@/lib/api/services/chat-service";
 
 type ChatWorkspaceProps = {
   assistant: AssistantSummary;
@@ -9,113 +18,198 @@ type ChatWorkspaceProps = {
 };
 
 const suggestedPrompts = [
-  "Summarize what changed since my last update.",
-  "Turn my rough notes into a polished brief.",
-  "Find the blockers and recommend next steps.",
+  "Turn these notes into a structured project brief.",
+  "Review the current plan and show the biggest risks.",
+  "Help me break this goal into concrete next actions.",
 ];
+
+function upsertThread(
+  threads: ThreadSummary[],
+  nextThread: ThreadSummary,
+): ThreadSummary[] {
+  const remaining = threads.filter((thread) => thread.id !== nextThread.id);
+  return [nextThread, ...remaining];
+}
 
 export function ChatWorkspace({
   assistant,
   recentThreads,
 }: ChatWorkspaceProps) {
+  const [threads, setThreads] = useState<ThreadSummary[]>(recentThreads);
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [draft, setDraft] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const activeThread = useMemo(
+    () => threads.find((thread) => thread.id === activeThreadId) ?? null,
+    [activeThreadId, threads],
+  );
+
+  function handleNewThread() {
+    setActiveThreadId(null);
+    setMessages([]);
+    setDraft("");
+    setError(null);
+  }
+
+  function handleSelectThread(thread: ThreadSummary) {
+    setActiveThreadId(thread.id);
+    setMessages([]);
+    setError(null);
+  }
+
+  async function handleSend({
+    message,
+    attachments,
+  }: {
+    message: string;
+    attachments: AttachmentDraft[];
+  }) {
+    if (!message.trim() || isSending) {
+      return;
+    }
+
+    setIsSending(true);
+    setError(null);
+
+    const sentAt = new Date().toISOString();
+    const userMessageId = `user-${Date.now()}`;
+    const assistantMessageId = `assistant-${Date.now()}`;
+    const provisionalTitle = trimPreview(message, 44);
+    let resolvedThreadId = activeThreadId;
+    const resolvedThreadTitle = activeThread?.title || provisionalTitle;
+
+    setMessages((current) => [
+      ...current,
+      {
+        id: userMessageId,
+        role: "user",
+        content: message,
+        createdAt: sentAt,
+        status: "complete",
+        attachments,
+      },
+      {
+        id: assistantMessageId,
+        role: "assistant",
+        content: "",
+        createdAt: new Date().toISOString(),
+        status: "streaming",
+      },
+    ]);
+
+    setDraft("");
+
+    try {
+      await sendMessageStream(
+        {
+          message,
+          ...(activeThreadId ? { threadId: activeThreadId } : {}),
+        },
+        {
+          onThreadId(threadId) {
+            resolvedThreadId = threadId;
+            setActiveThreadId(threadId);
+            setThreads((current) =>
+              upsertThread(current, {
+                id: threadId,
+                title: resolvedThreadTitle,
+                preview: trimPreview(message),
+                updatedAt: new Date().toISOString(),
+              }),
+            );
+          },
+          onTextDelta(text) {
+            setMessages((current) =>
+              current.map((entry) =>
+                entry.id === assistantMessageId
+                  ? { ...entry, content: `${entry.content}${text}` }
+                  : entry,
+              ),
+            );
+          },
+        },
+      );
+
+      setMessages((current) =>
+        current.map((entry) =>
+          entry.id === assistantMessageId
+            ? {
+                ...entry,
+                content:
+                  entry.content ||
+                  "The assistant run completed, but it did not return visible text.",
+                status: "complete",
+              }
+            : entry,
+        ),
+      );
+
+      setThreads((current) =>
+        upsertThread(current, {
+          id: resolvedThreadId ?? `draft-${Date.now()}`,
+          title: resolvedThreadTitle,
+          preview: trimPreview(message),
+          updatedAt: new Date().toISOString(),
+        }),
+      );
+    } catch (sendError) {
+      const messageText =
+        sendError instanceof Error
+          ? sendError.message
+          : "Unable to send the message.";
+
+      setError(messageText);
+      setMessages((current) =>
+        current.map((entry) =>
+          entry.id === assistantMessageId
+            ? {
+                ...entry,
+                content: messageText,
+                status: "error",
+              }
+            : entry,
+        ),
+      );
+    } finally {
+      setIsSending(false);
+    }
+  }
+
   return (
-    <div className="space-y-6">
-      <PageHeader
-        eyebrow="Chat"
-        title={`Talk to ${assistant.name}`}
-        description="This route will become the primary streaming conversation UI. It is intentionally centered on one assistant, with no workflow or builder concepts exposed."
-        action={
-          <StatusBadge
-            label={
-              assistant.status === "ready" ? "Assistant ready" : "Provisioning"
-            }
-            tone={assistant.status === "ready" ? "success" : "warning"}
+    <div className="flex min-h-0 flex-1 flex-col gap-4">
+
+      {error ? (
+        <div className="shrink-0 rounded-2xl border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">
+          {error}
+        </div>
+      ) : null}
+
+      <div className="grid min-h-0 flex-1 gap-4 overflow-hidden xl:grid-cols-[280px_minmax(0,1fr)]">
+        <ThreadSidebar
+          activeThreadId={activeThreadId}
+          threads={threads}
+          onNewThread={handleNewThread}
+          onSelectThread={handleSelectThread}
+        />
+
+        <div className="flex min-h-0 flex-col gap-4 overflow-hidden">
+          <ThreadView
+            assistantName={assistant.name}
+            activeThread={activeThread}
+            messages={messages}
+            suggestedPrompts={suggestedPrompts}
+            onPromptSelect={setDraft}
           />
-        }
-      />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,1fr)]">
-        <FeatureCard
-          title="Conversation"
-          description="A polished streaming chat experience will live here, backed by the existing AffinityBots thread and LangGraph runtime."
-          footer="Implementation TODO: create or resume a single assistant thread and stream responses through the existing /api/chat proxy."
-        >
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-6 text-slate-300">
-              <p className="font-medium text-white">You</p>
-              <p className="mt-2">
-                Help me turn this week&apos;s notes into a concise launch update.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[var(--accent-soft)] bg-[var(--accent-soft)] p-4 text-sm leading-6 text-slate-100">
-              <p className="font-medium text-white">{assistant.name}</p>
-              <p className="mt-2">
-                I can help with that. Once the runtime is wired up, I&apos;ll use
-                your connected apps, uploaded files, and memory to draft a clean
-                summary.
-              </p>
-            </div>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-              <label className="block text-sm font-medium text-white">
-                Message
-              </label>
-              <textarea
-                disabled
-                className="mt-3 min-h-32 w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-slate-200 outline-none"
-                defaultValue="This disabled composer is a placeholder for the streaming chat input."
-              />
-              <div className="mt-4 flex flex-wrap gap-3">
-                <button className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950">
-                  Send
-                </button>
-                <button className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200">
-                  Attach file
-                </button>
-              </div>
-            </div>
-          </div>
-        </FeatureCard>
-
-        <div className="space-y-6">
-          <FeatureCard
-            title="Quick starts"
-            description="The first-run experience should make it obvious what the assistant can help with."
-          >
-            <div className="space-y-3">
-              {suggestedPrompts.map((prompt) => (
-                <button
-                  key={prompt}
-                  className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-left text-sm text-slate-200"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
-          </FeatureCard>
-
-          <FeatureCard
-            title="Recent conversations"
-            description="Conversation history remains visible, but secondary to the main chat view."
-          >
-            <div className="space-y-3">
-              {recentThreads.map((thread) => (
-                <div
-                  key={thread.id}
-                  className="rounded-2xl border border-white/10 bg-black/20 p-4"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="font-medium text-white">{thread.title}</p>
-                    <span className="text-xs text-[var(--muted)]">
-                      {thread.updatedAt}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">
-                    {thread.preview}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </FeatureCard>
+          <Composer
+            draft={draft}
+            isSending={isSending}
+            onDraftChange={setDraft}
+            onSend={handleSend}
+          />
         </div>
       </div>
     </div>

@@ -18,8 +18,8 @@ export default async function AuthenticatedAppLayout({
 
   return (
     <AppShell
-      title="Northstar Assistant"
-      subtitle="A chat-first client layer built to sit on top of the existing AffinityBots runtime."
+      title="Solo Agents"
+      subtitle="A focused workspace for personal AI assistants, persistent threads, and file-aware drafting."
     >
       {children}
     </AppShell>

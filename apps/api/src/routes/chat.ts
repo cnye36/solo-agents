@@ -3,7 +3,7 @@ import { createLangGraphClient } from "@/clients/langgraph";
 import { supabaseAdmin } from "@/clients/supabase-admin";
 import { apiEnv } from "@/lib/env";
 import { requireUser } from "@/lib/auth";
-import { getPrimaryAssistant } from "@/services/platform-data";
+import { ensurePrimaryAssistant } from "@/services/platform-data";
 
 export const chatRoutes = new Hono();
 
@@ -19,7 +19,7 @@ chatRoutes.post("/send", async (c) => {
     threadId?: string;
   }>();
 
-  const assistant = await getPrimaryAssistant(user.id);
+  const assistant = await ensurePrimaryAssistant(user);
   const langGraphClient = createLangGraphClient();
 
   if (!assistant || !langGraphClient) {
@@ -58,6 +58,7 @@ chatRoutes.post("/send", async (c) => {
         "x-api-key": apiEnv.langSmithApiKey,
       },
       body: JSON.stringify({
+        assistant_id: assistant.id,
         input: {
           messages: [{ type: "human", content: body.message }],
         },
@@ -69,6 +70,7 @@ chatRoutes.post("/send", async (c) => {
           thread_id: threadId,
         },
         config: {
+          recursion_limit: 25,
           configurable: {
             ...assistantConfigurable,
             user_id: user.id,
@@ -78,10 +80,33 @@ chatRoutes.post("/send", async (c) => {
             thread_id: threadId,
           },
         },
-        stream_mode: ["messages", "messages-tuple"],
+        stream_mode: ["messages-tuple"],
       }),
     },
   );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+
+    console.error("[chat] upstream run stream failed", {
+      status: response.status,
+      threadId,
+      assistantId: assistant.id,
+      apiUrl: apiEnv.langGraphApiUrl,
+      body: errorText,
+    });
+
+    return c.json(
+      {
+        error: "Upstream chat request failed.",
+        detail: errorText,
+        status: response.status,
+        threadId,
+        assistantId: assistant.id,
+      },
+      response.status as 400 | 401 | 403 | 404 | 409 | 422 | 429 | 500 | 502 | 503,
+    );
+  }
 
   return new Response(response.body, {
     status: response.status,

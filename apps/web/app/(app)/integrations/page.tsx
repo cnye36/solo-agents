@@ -1,8 +1,8 @@
 import { IntegrationsOverview } from "@/features/integrations/integrations-overview";
-import { getAppBootstrapData } from "@/lib/api/services/bootstrap-service";
+import { listIntegrationCatalog } from "@/lib/api/services/integrations-service";
 
 export default async function IntegrationsPage() {
-  const data = await getAppBootstrapData();
+  const data = await listIntegrationCatalog();
 
-  return <IntegrationsOverview apps={data.connectedApps} />;
+  return <IntegrationsOverview apps={data.apps} />;
 }

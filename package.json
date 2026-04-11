@@ -5,10 +5,11 @@
   "packageManager": "pnpm@10.33.0",
   "scripts": {
     "dev:web": "pnpm --filter @solo-agents/web dev",
+    "dev:mobile": "pnpm --filter @solo-agents/mobile start",
     "dev:api": "pnpm --filter @solo-agents/api dev",
     "build": "pnpm -r build",
     "lint": "pnpm --filter @solo-agents/web lint && pnpm --filter @solo-agents/api lint",
-    "typecheck": "pnpm --filter @solo-agents/types typecheck && pnpm --filter @solo-agents/config typecheck && pnpm --filter @solo-agents/ui typecheck && pnpm --filter @solo-agents/web typecheck && pnpm --filter @solo-agents/api typecheck"
+    "typecheck": "pnpm --filter @solo-agents/types typecheck && pnpm --filter @solo-agents/config typecheck && pnpm --filter @solo-agents/ui typecheck && pnpm --filter @solo-agents/web typecheck && pnpm --filter @solo-agents/mobile typecheck && pnpm --filter @solo-agents/api typecheck"
   },
   "devDependencies": {
     "@types/node": "^20",

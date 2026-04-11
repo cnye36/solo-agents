@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { createLangGraphClient } from "@/clients/langgraph";
 import { requireUser } from "@/lib/auth";
-import { getPrimaryAssistant, getRecentThreads } from "@/services/platform-data";
+import { ensurePrimaryAssistant, getRecentThreads } from "@/services/platform-data";
 
 export const threadRoutes = new Hono();
 
@@ -12,7 +12,7 @@ threadRoutes.get("/", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const assistant = await getPrimaryAssistant(user.id);
+  const assistant = await ensurePrimaryAssistant(user);
 
   if (!assistant) {
     return c.json({ threads: [] });
@@ -29,7 +29,7 @@ threadRoutes.post("/", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const assistant = await getPrimaryAssistant(user.id);
+  const assistant = await ensurePrimaryAssistant(user);
   const langGraph = createLangGraphClient();
 
   if (!assistant || !langGraph) {
