@@ -60,6 +60,8 @@ jobs:
 
       - name: Run EAS build
         working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
           PLATFORM="${{ github.event.inputs.platform || 'all' }}"
           PROFILE="${{ github.event.inputs.profile || 'preview' }}"
