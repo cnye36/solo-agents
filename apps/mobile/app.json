@@ -22,7 +22,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#060816"
+          "backgroundColor": "#060816",
+          "image": "./assets/images/AffinityBots-Icon-Dark.png",
+          "imageWidth": 200
         }
       ]
     ],
