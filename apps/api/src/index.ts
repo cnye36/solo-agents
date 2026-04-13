@@ -25,8 +25,9 @@ serve(
   {
     fetch: app.fetch,
     port: apiEnv.port,
+    hostname: "0.0.0.0",
   },
   (info) => {
-    console.log(`solo-agents api listening on http://localhost:${info.port}`);
+    console.log(`solo-agents api listening on http://127.0.0.1:${info.port} (bound on 0.0.0.0:${info.port})`);
   },
 );
