@@ -59,7 +59,7 @@ function IconSecurity() {
 
 function IconPlay() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7 tranzinc-x-0.5">
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7 translate-x-0.5">
       <path d="M8 5.14v14l11-7-11-7z" />
     </svg>
   );
@@ -155,16 +155,16 @@ export function LandingPage() {
 
       {/* ── Fixed background orbs ── */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="animate-float absolute -left-48 -top-48 h-[680px] w-[680px] rounded-full bg-cyan-400/[0.07] blur-[140px]" />
-        <div className="animate-float-slow absolute -right-48 top-1/4 h-[560px] w-[560px] rounded-full bg-violet-500/[0.08] blur-[120px]" />
-        <div className="animate-float-reverse absolute bottom-0 left-1/3 h-[480px] w-[640px] rounded-full bg-indigo-500/[0.06] blur-[110px]" />
+        <div className="animate-float absolute -left-48 -top-48 h-[680px] w-[680px] rounded-full bg-zinc-500/[0.06] blur-[140px]" />
+        <div className="animate-float-slow absolute -right-48 top-1/4 h-[560px] w-[560px] rounded-full bg-violet-500/[0.07] blur-[120px]" />
+        <div className="animate-float-reverse absolute bottom-0 left-1/3 h-[480px] w-[640px] rounded-full bg-zinc-400/[0.05] blur-[110px]" />
       </div>
 
       {/* ── Navigation ── */}
       <nav className="sticky top-0 z-50 border-b border-white/[0.06] bg-[var(--background)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_12px_rgba(76,201,240,0.4)]">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-violet-700 text-white shadow-[0_0_14px_rgba(167,139,250,0.35)]">
               <IconStar />
             </div>
             <span className="text-sm font-semibold text-white">{APP_NAME}</span>
@@ -195,10 +195,10 @@ export function LandingPage() {
             </Link>
             <Link
               href="/signup"
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-white shadow-[0_0_16px_rgba(76,201,240,0.35)] transition hover:shadow-[0_0_24px_rgba(76,201,240,0.5)] hover:opacity-90"
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-white shadow-[0_0_18px_rgba(167,139,250,0.35)] transition hover:shadow-[0_0_26px_rgba(167,139,250,0.5)] hover:opacity-90"
               style={{
                 background:
-                  "linear-gradient(135deg, #4cc9f0 0%, #818cf8 100%)",
+                  "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
               }}
             >
               Get started
@@ -210,9 +210,9 @@ export function LandingPage() {
       {/* ── Hero ── */}
       <section className="relative mx-auto max-w-7xl px-6 pb-28 pt-24 text-center">
         {/* Badge */}
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.08] px-4 py-2">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
-          <span className="text-xs font-medium tracking-wide text-cyan-200">
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/[0.08] px-4 py-2">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-400" />
+          <span className="text-xs font-medium tracking-wide text-violet-200">
             Now in early access
           </span>
         </div>
@@ -224,7 +224,7 @@ export function LandingPage() {
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage:
-                "linear-gradient(135deg, #4cc9f0 0%, #818cf8 60%, #c084fc 100%)",
+                "linear-gradient(135deg, #fafafa 0%, #d4d4d8 35%, #a78bfa 70%, #c4b5fd 100%)",
             }}
           >
             fully in context.
@@ -241,10 +241,10 @@ export function LandingPage() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/signup"
-            className="rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(76,201,240,0.4)] transition hover:shadow-[0_0_40px_rgba(76,201,240,0.6)] hover:opacity-90 active:scale-[0.98]"
+            className="rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(167,139,250,0.38)] transition hover:shadow-[0_0_42px_rgba(167,139,250,0.55)] hover:opacity-90 active:scale-[0.98]"
             style={{
               background:
-                "linear-gradient(135deg, #4cc9f0 0%, #818cf8 100%)",
+                "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
             }}
           >
             Start for free
@@ -254,15 +254,15 @@ export function LandingPage() {
             className="group inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.06] px-8 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.1]"
           >
             Watch the demo
-            <span className="transition group-hover:tranzinc-y-0.5">↓</span>
+            <span className="transition group-hover:translate-y-0.5">↓</span>
           </a>
         </div>
 
         {/* Product mockup */}
         <div className="mx-auto mt-20 max-w-5xl">
-          <div className="relative overflow-hidden rounded-2xl border border-white/[0.09] bg-[rgba(10,16,30,0.92)] shadow-[0_48px_120px_rgba(0,0,0,0.65)] backdrop-blur">
+          <div className="relative overflow-hidden rounded-2xl border border-white/[0.09] bg-zinc-950/95 shadow-[0_48px_120px_rgba(0,0,0,0.65)] backdrop-blur">
             {/* Glow behind mockup */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-500/35 to-transparent" />
 
             {/* Window chrome */}
             <div className="flex items-center gap-2 border-b border-white/[0.07] px-5 py-3.5">
@@ -291,7 +291,7 @@ export function LandingPage() {
                     key={thread.label}
                     className={`rounded-lg px-3 py-2.5 text-left text-xs ${
                       thread.active
-                        ? "bg-[var(--accent-soft)] text-cyan-200"
+                        ? "bg-[var(--accent-soft)] text-violet-100"
                         : "text-zinc-500 hover:bg-white/5"
                     }`}
                   >
@@ -320,14 +320,14 @@ export function LandingPage() {
                     </div>
                   </div>
                   <div className="flex justify-start">
-                    <div className="max-w-[78%] space-y-2 rounded-2xl rounded-tl-md border border-cyan-400/15 bg-cyan-400/[0.07] px-4 py-3 text-sm text-cyan-50">
+                    <div className="max-w-[78%] space-y-2 rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-zinc-100">
                       <p>Here&apos;s a summary across 14 calls this week:</p>
-                      <ul className="space-y-1 pl-4 text-cyan-200/80">
+                      <ul className="space-y-1 pl-4 text-zinc-300">
                         <li className="list-disc">Onboarding friction cited by 6 accounts</li>
                         <li className="list-disc">API reliability questions from 4 enterprise leads</li>
                         <li className="list-disc">Pricing clarity flagged as a blocker in 3 deals</li>
                       </ul>
-                      <p className="text-xs text-cyan-300/60">Sources: Gong, Notion, uploaded call transcripts</p>
+                      <p className="text-xs text-zinc-500">Sources: Gong, Notion, uploaded call transcripts</p>
                     </div>
                   </div>
                 </div>
@@ -339,7 +339,7 @@ export function LandingPage() {
                       Ask anything…
                     </span>
                     <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent-soft)]">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 text-cyan-300">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5 text-violet-300">
                         <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
@@ -354,7 +354,7 @@ export function LandingPage() {
             className="pointer-events-none mx-4 h-16 rounded-b-2xl blur-sm"
             style={{
               background:
-                "linear-gradient(180deg, rgba(10,16,30,0.4) 0%, transparent 100%)",
+                "linear-gradient(180deg, rgba(24,24,27,0.45) 0%, transparent 100%)",
             }}
           />
         </div>
@@ -439,7 +439,7 @@ export function LandingPage() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(135deg, #08121f 0%, #0d1a2e 40%, #091220 100%)",
+                  "linear-gradient(135deg, #18181b 0%, #27272a 45%, #09090b 100%)",
               }}
             />
 
@@ -448,25 +448,25 @@ export function LandingPage() {
               className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)",
+                  "linear-gradient(rgba(113,113,122,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(113,113,122,0.9) 1px, transparent 1px)",
                 backgroundSize: "48px 48px",
               }}
             />
 
             {/* Glow behind play button */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl" />
+              <div className="h-40 w-40 rounded-full bg-violet-500/12 blur-3xl" />
             </div>
 
             {/* Play button */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-[0_0_40px_rgba(76,201,240,0.2)] backdrop-blur transition duration-200 group-hover:scale-105 group-hover:bg-white/18 group-hover:shadow-[0_0_60px_rgba(76,201,240,0.3)]">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-[0_0_40px_rgba(167,139,250,0.22)] backdrop-blur transition duration-200 group-hover:scale-105 group-hover:bg-white/18 group-hover:shadow-[0_0_60px_rgba(167,139,250,0.32)]">
                 <IconPlay />
               </div>
             </div>
 
             {/* Top glow line */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-500/35 to-transparent" />
 
             {/* Label */}
             <div className="absolute bottom-6 left-6">
@@ -501,14 +501,14 @@ export function LandingPage() {
               <div key={step.number} className="relative">
                 {/* Connector line */}
                 {i < 2 && (
-                  <div className="absolute left-full top-6 hidden h-px w-full -tranzinc-x-4 bg-gradient-to-r from-white/10 to-transparent md:block" />
+                  <div className="absolute left-full top-6 hidden h-px w-full -translate-x-4 bg-gradient-to-r from-white/10 to-transparent md:block" />
                 )}
 
                 <div
                   className="mb-4 inline-block text-6xl font-bold tracking-tight"
                   style={{
                     backgroundImage:
-                      "linear-gradient(135deg, rgba(76,201,240,0.5), rgba(129,140,248,0.3))",
+                      "linear-gradient(135deg, rgba(212,212,216,0.85), rgba(167,139,250,0.45))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -537,10 +537,10 @@ export function LandingPage() {
               className="pointer-events-none absolute inset-0 -z-10"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 0%, rgba(76,201,240,0.1) 0%, transparent 70%), radial-gradient(ellipse at 50% 100%, rgba(129,140,248,0.08) 0%, transparent 70%), rgba(12,18,30,0.8)",
+                  "radial-gradient(ellipse at 50% 0%, rgba(167,139,250,0.1) 0%, transparent 70%), radial-gradient(ellipse at 50% 100%, rgba(161,161,170,0.06) 0%, transparent 70%), rgba(24,24,27,0.85)",
               }}
             />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-500/35 to-transparent" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-violet-400/20 to-transparent" />
 
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">
@@ -556,10 +556,10 @@ export function LandingPage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(76,201,240,0.4)] transition hover:shadow-[0_0_40px_rgba(76,201,240,0.6)] hover:opacity-90 active:scale-[0.98]"
+                className="rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(167,139,250,0.38)] transition hover:shadow-[0_0_42px_rgba(167,139,250,0.55)] hover:opacity-90 active:scale-[0.98]"
                 style={{
                   background:
-                    "linear-gradient(135deg, #4cc9f0 0%, #818cf8 100%)",
+                    "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
                 }}
               >
                 Create free account
@@ -579,7 +579,7 @@ export function LandingPage() {
       <footer className="border-t border-white/[0.06] py-12">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-cyan-400 to-blue-600 text-white">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-violet-500 to-violet-700 text-white">
               <IconStar />
             </div>
             <span className="text-sm font-semibold text-white">{APP_NAME}</span>

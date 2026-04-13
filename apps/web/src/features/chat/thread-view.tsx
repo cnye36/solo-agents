@@ -36,7 +36,7 @@ export function ThreadView({
   const hasMessages = messages.length > 0;
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] shadow-[0_20px_64px_rgba(0,0,0,0.22)] backdrop-blur">
+    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-zinc-900/40 shadow-[0_20px_64px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       {activeThread ? (
         <div className="shrink-0 border-b border-white/8 px-6 py-4">
           <h2 className="truncate text-lg font-medium text-white">
@@ -60,7 +60,7 @@ export function ThreadView({
           </div>
         ) : (
           <div className="flex h-full min-h-[26rem] flex-col items-center justify-center px-6 py-12 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-[var(--accent)]/25 bg-[var(--accent)]/10 text-[var(--accent)]">
+            <div className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-zinc-600/40 bg-zinc-800/50 text-zinc-300">
               <SparkIcon className="h-7 w-7" />
             </div>
 
@@ -70,7 +70,7 @@ export function ThreadView({
                   key={prompt}
                   type="button"
                   onClick={() => onPromptSelect(prompt)}
-                  className="rounded-[24px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left text-sm leading-6 text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.06]"
+                  className="rounded-[24px] border border-white/10 bg-zinc-950/35 px-4 py-4 text-left text-sm leading-6 text-zinc-200 transition hover:border-white/20 hover:bg-zinc-800/40"
                 >
                   {prompt}
                 </button>

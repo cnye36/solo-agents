@@ -17,7 +17,7 @@ function AttachmentPill({
   sizeLabel: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2">
+    <div className="rounded-2xl border border-white/10 bg-zinc-800/35 px-3 py-2">
       <p className="truncate text-sm font-medium text-white">{name}</p>
       <p className="mt-1 text-xs text-zinc-400">{sizeLabel}</p>
     </div>
@@ -29,9 +29,9 @@ function ThinkingDots() {
     <div className="flex items-center gap-2 text-zinc-400">
       <span>Thinking</span>
       <span className="flex gap-1">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)] [animation-delay:0ms]" />
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)] [animation-delay:150ms]" />
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)] [animation-delay:300ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500 [animation-delay:0ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500 [animation-delay:150ms]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500 [animation-delay:300ms]" />
       </span>
     </div>
   );
@@ -45,8 +45,8 @@ export function Message({ assistantName, message }: MessageProps) {
       <div
         className={
           isUser
-            ? "max-w-[82%] space-y-3 rounded-[28px] rounded-br-lg border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-5 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
-            : "w-full max-w-[min(860px,100%)] space-y-3 rounded-[30px] border border-white/8 bg-[linear-gradient(180deg,rgba(10,18,34,0.9),rgba(10,18,34,0.65))] px-5 py-5 shadow-[0_20px_48px_rgba(0,0,0,0.18)]"
+            ? "max-w-[82%] space-y-3 rounded-[28px] rounded-br-lg border border-white/10 bg-[linear-gradient(180deg,rgba(63,63,70,0.55),rgba(39,39,42,0.38))] px-5 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+            : "w-full max-w-[min(860px,100%)] space-y-3 rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(39,39,42,0.92),rgba(24,24,27,0.78))] px-5 py-5 shadow-[0_20px_48px_rgba(0,0,0,0.18)]"
         }
       >
         <div className="flex items-center justify-between gap-3">

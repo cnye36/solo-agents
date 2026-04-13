@@ -143,7 +143,7 @@ export function Composer({
   }, []);
 
   return (
-    <div className="sticky bottom-0 z-10 shrink-0 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(12,18,32,0.97),rgba(12,18,32,0.92))] p-3 shadow-[0_18px_48px_rgba(0,0,0,0.22)] backdrop-blur">
+    <div className="sticky bottom-0 z-10 shrink-0 rounded-[28px] border border-white/10 bg-zinc-900/55 p-3 shadow-[0_18px_48px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       <input
         ref={fileInputRef}
         type="file"
@@ -197,7 +197,7 @@ export function Composer({
           onPaste={handlePaste}
           rows={1}
           placeholder="Send a message"
-          className="min-h-[52px] max-h-[220px] flex-1 resize-none rounded-[24px] border border-white/8 bg-black/25 px-4 py-3 text-[15px] leading-6 text-zinc-100 outline-none placeholder:text-zinc-500"
+          className="min-h-[52px] max-h-[220px] flex-1 resize-none rounded-[24px] border border-white/8 bg-zinc-950/55 px-4 py-3 text-[15px] leading-6 text-zinc-100 outline-none placeholder:text-zinc-500"
           disabled={isSending}
         />
 

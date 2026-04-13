@@ -122,7 +122,7 @@ function AuthFields({
           type="password"
           value={formState.apiKey}
           onChange={(event) => onChange("apiKey", event.target.value)}
-          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+          className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
           placeholder="Paste the API key"
         />
       </label>
@@ -137,7 +137,7 @@ function AuthFields({
           type="password"
           value={formState.accessToken}
           onChange={(event) => onChange("accessToken", event.target.value)}
-          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+          className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
           placeholder="Paste the bearer token"
         />
       </label>
@@ -155,7 +155,7 @@ function AuthFields({
             onChange={(event) =>
               onChange("basicAuthUsername", event.target.value)
             }
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
             placeholder="Username"
           />
         </label>
@@ -167,7 +167,7 @@ function AuthFields({
             onChange={(event) =>
               onChange("basicAuthPassword", event.target.value)
             }
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
             placeholder="Password"
           />
         </label>
@@ -348,7 +348,7 @@ export function IntegrationsOverview({
           {paginatedApps.map((app) => (
             <div
               key={app.id}
-              className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.18)]"
+              className="rounded-[28px] border border-white/10 bg-zinc-900/40 p-5 shadow-[0_18px_48px_rgba(0,0,0,0.18)] backdrop-blur-xl"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex min-w-0 items-start gap-4">
@@ -460,7 +460,7 @@ export function IntegrationsOverview({
       </div>
 
       {selectedApp ? (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/55 px-4 py-8">
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-zinc-950/70 px-4 py-8">
           <div className="w-full max-w-2xl rounded-[32px] border border-white/10 bg-[var(--background-soft)] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
             <div className="flex items-start justify-between gap-4">
               <div>

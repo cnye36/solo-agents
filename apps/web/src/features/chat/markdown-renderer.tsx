@@ -35,7 +35,7 @@ function renderInline(text: string): ReactNode[] {
           href={match[3]}
           target="_blank"
           rel="noreferrer"
-          className="text-[var(--accent)] underline decoration-[color:var(--accent)]/45 underline-offset-4 transition hover:decoration-[color:var(--accent)]"
+          className="text-zinc-300 underline decoration-zinc-600/80 underline-offset-4 transition hover:text-white hover:decoration-zinc-400"
         >
           {match[2]}
         </a>,
@@ -44,7 +44,7 @@ function renderInline(text: string): ReactNode[] {
       nodes.push(
         <code
           key={`${matchIndex}-${fullMatch}`}
-          className="rounded-md border border-white/10 bg-black/30 px-1.5 py-0.5 font-mono text-[0.92em] text-zinc-100"
+          className="rounded-md border border-white/10 bg-zinc-900/70 px-1.5 py-0.5 font-mono text-[0.92em] text-zinc-100"
         >
           {match[5]}
         </code>,
@@ -186,7 +186,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           return (
             <div
               key={`code-${index}`}
-              className="overflow-hidden rounded-2xl border border-white/10 bg-[#09101d]"
+              className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-950"
             >
               <div className="flex items-center justify-between border-b border-white/8 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-zinc-400">
                 <span>{block.language || "Code"}</span>
@@ -219,7 +219,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             <ul key={`list-${index}`} className="space-y-2 pl-1">
               {block.items.map((item, itemIndex) => (
                 <li key={`list-item-${index}-${itemIndex}`} className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-zinc-500" />
                   <span className="min-w-0">{renderInline(item)}</span>
                 </li>
               ))}
@@ -231,7 +231,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           return (
             <blockquote
               key={`quote-${index}`}
-              className="rounded-r-2xl border-l-2 border-[var(--accent)] bg-white/[0.03] px-4 py-3 text-zinc-300"
+              className="rounded-r-2xl border-l-2 border-zinc-500 bg-zinc-950/40 px-4 py-3 text-zinc-300"
             >
               {block.lines.map((line, lineIndex) => (
                 <p key={`quote-line-${index}-${lineIndex}`}>

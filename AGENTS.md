@@ -158,8 +158,8 @@ The current UI direction is premium, dark, and product-marketing oriented. Exist
 
 - large radii
 - layered dark surfaces
-- muted zinc copy
-- violet accent tokens
+- muted zinc neutrals (`globals.css` tokens + `zinc-*` utilities)
+- violet accent only (no cyan / blue-gray “slate” cast on backgrounds)
 
 Do not replace that with generic white-card SaaS styling unless the task explicitly calls for a redesign. Extend the token system in `globals.css` when possible instead of scattering hardcoded color choices.
 

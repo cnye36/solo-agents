@@ -74,7 +74,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.18)]">
+    <section className="rounded-[28px] border border-white/10 bg-zinc-900/40 p-6 shadow-[0_18px_48px_rgba(0,0,0,0.18)] backdrop-blur-xl">
       <h2 className="text-lg font-medium text-white">{title}</h2>
       <div className="mt-4">{children}</div>
     </section>
@@ -116,7 +116,7 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
         ) : null}
       </div>
 
-      <section className="rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
+      <section className="rounded-[32px] border border-white/10 bg-zinc-900/45 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur-xl">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 items-start gap-5">
             <IntegrationLogo integration={integration} />
@@ -141,7 +141,7 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          <div className="min-w-[240px] rounded-[24px] border border-white/10 bg-black/20 p-4">
+          <div className="min-w-[240px] rounded-[24px] border border-white/10 bg-zinc-950/50 p-4">
             <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
               Connection
             </p>

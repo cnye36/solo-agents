@@ -14,7 +14,7 @@ export function BootstrapSummary({ todos }: BootstrapSummaryProps) {
         {todos.map((todo) => (
           <li
             key={todo}
-            className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3"
+            className="rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3"
           >
             {todo}
           </li>

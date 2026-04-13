@@ -25,7 +25,7 @@ export function AccountOverview({
           title="Profile"
           description="Basic account details should be easy to find and edit."
         >
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-zinc-200">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-zinc-950/50 p-4 text-sm text-zinc-200">
             <p>
               <span className="text-[var(--muted)]">Email:</span> {email}
             </p>
@@ -41,7 +41,7 @@ export function AccountOverview({
           description="Initial billing can be a simple summary plus a portal handoff."
           footer="Implementation TODO: connect this to the existing subscription and Stripe portal endpoints."
         >
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-zinc-950/50 p-4">
             <p className="text-sm text-[var(--muted)]">Current plan</p>
             <p className="text-xl font-semibold text-white">{planName}</p>
             <p className="text-sm text-zinc-300">{renewalLabel}</p>
