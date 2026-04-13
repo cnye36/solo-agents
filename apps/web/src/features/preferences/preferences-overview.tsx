@@ -29,7 +29,7 @@ export function PreferencesOverview({
               {group.items.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3"
+                  className="rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3"
                 >
                   <p className="text-sm text-[var(--muted)]">{item.label}</p>
                   <p className="mt-1 font-medium text-white">{item.value}</p>

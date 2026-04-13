@@ -24,7 +24,7 @@ export function HistoryOverview({ threads }: HistoryOverviewProps) {
           {threads.map((thread) => (
             <div
               key={thread.id}
-              className="rounded-2xl border border-white/10 bg-black/20 p-4"
+              className="rounded-2xl border border-white/10 bg-zinc-950/45 p-4"
             >
               <div className="flex items-center justify-between gap-3">
                 <p className="font-medium text-white">{thread.title}</p>

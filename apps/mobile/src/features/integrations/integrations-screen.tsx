@@ -384,7 +384,7 @@ function ConfigureSheet({
             style={[styles.saveButton, isSaving && styles.saveButtonDisabled]}
           >
             {isSaving ? (
-              <ActivityIndicator color={colors.text} />
+              <ActivityIndicator color={colors.onPrimary} />
             ) : (
               <Text style={styles.saveButtonText}>
                 {isConnected ? "Update credentials" : "Connect"}
@@ -610,11 +610,11 @@ const styles = StyleSheet.create({
   saveButton: {
     minHeight: 52,
     borderRadius: radii.pill,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
     marginTop: spacing.sm,
   },
   saveButtonDisabled: { opacity: 0.6 },
-  saveButtonText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  saveButtonText: { color: colors.onPrimary, fontSize: 16, fontWeight: "700" },
 });

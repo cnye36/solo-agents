@@ -35,9 +35,9 @@ export function ThreadSidebar({
   }, [deferredQuery, threads]);
 
   return (
-    <aside className="flex h-full min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] p-3 shadow-[0_20px_64px_rgba(0,0,0,0.22)] backdrop-blur">
+    <aside className="flex h-full min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-zinc-900/40 p-3 shadow-[0_20px_64px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       <div className="flex shrink-0 items-center gap-2">
-        <label className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-3 py-3">
+        <label className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-white/10 bg-zinc-950/50 px-3 py-3">
           <SearchIcon className="h-4 w-4 shrink-0 text-zinc-500" />
           <input
             type="search"
@@ -71,8 +71,8 @@ export function ThreadSidebar({
                   onClick={() => onSelectThread(thread)}
                   className={
                     isActive
-                      ? "w-full rounded-2xl border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.14)]"
-                      : "w-full rounded-2xl border border-white/8 bg-white/[0.02] px-4 py-3 text-left transition hover:border-white/14 hover:bg-white/[0.04]"
+                      ? "w-full rounded-2xl border border-zinc-500/35 bg-zinc-800/55 px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.14)] ring-1 ring-inset ring-white/5"
+                      : "w-full rounded-2xl border border-white/8 bg-zinc-950/30 px-4 py-3 text-left transition hover:border-white/14 hover:bg-zinc-800/35"
                   }
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -90,7 +90,7 @@ export function ThreadSidebar({
               );
             })
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/10 bg-black/20 px-4 py-6 text-sm leading-6 text-zinc-400">
+            <div className="rounded-2xl border border-dashed border-white/10 bg-zinc-950/40 px-4 py-6 text-sm leading-6 text-zinc-400">
               {threads.length
                 ? "No matching threads."
                 : "No threads yet."}

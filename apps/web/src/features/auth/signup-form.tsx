@@ -58,7 +58,7 @@ export function SignupForm() {
           <input
             name="fullName"
             autoComplete="name"
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
             placeholder="Full name (optional)"
           />
           <input
@@ -66,7 +66,7 @@ export function SignupForm() {
             type="email"
             autoComplete="email"
             required
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
             placeholder="Email"
           />
           <input
@@ -75,7 +75,7 @@ export function SignupForm() {
             autoComplete="new-password"
             required
             minLength={6}
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
             placeholder="Password"
           />
           <SubmitButton />

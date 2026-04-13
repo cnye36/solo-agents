@@ -5,17 +5,19 @@
     "Segoe UI", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono-stack:
     "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --background: #1a1c1f;
-  --background-soft: #101b2d;
-  --surface: rgba(16, 27, 45, 0.78);
-  --surface-strong: #162338;
-  --border: rgba(161, 161, 170, 0.16);
+  /* Zinc-forward neutrals (Tailwind zinc scale) */
+  --background: #09090b;
+  --background-soft: #18181b;
+  --surface: rgba(39, 39, 42, 0.72);
+  --surface-strong: #27272a;
+  --border: rgba(161, 161, 170, 0.14);
   --foreground: #fafafa;
   --muted: #a1a1aa;
-  --accent: #4cc9f0;
-  --accent-soft: rgba(76, 201, 240, 0.18);
-  --accent-violet: #818cf8;
-  --accent-violet-soft: rgba(129, 140, 248, 0.14);
+  /* Single accent hue: violet (no cyan / teal) */
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.14);
+  --accent-violet: #c4b5fd;
+  --accent-violet-soft: rgba(196, 181, 253, 0.12);
   --success: #34d399;
   --warning: #fbbf24;
 }
@@ -68,9 +70,9 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(76, 201, 240, 0.18), transparent 34%),
-    radial-gradient(circle at 85% 12%, rgba(251, 191, 36, 0.12), transparent 22%),
-    linear-gradient(180deg, #07111f 0%, #091423 100%);
+    radial-gradient(circle at 50% -10%, rgba(161, 161, 170, 0.07), transparent 44%),
+    radial-gradient(circle at 90% 20%, rgba(113, 113, 122, 0.06), transparent 40%),
+    linear-gradient(180deg, #09090b 0%, #18181b 50%, #09090b 100%);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -91,5 +93,5 @@ select {
 }
 
 ::selection {
-  background: rgba(76, 201, 240, 0.3);
+  background: rgba(167, 139, 250, 0.28);
 }

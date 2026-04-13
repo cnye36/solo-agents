@@ -30,7 +30,7 @@ export function FilesOverview({ files }: FilesOverviewProps) {
           {files.map((file) => (
             <div
               key={file.id}
-              className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-black/20 p-4 md:flex-row md:items-center md:justify-between"
+              className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-zinc-950/50 p-4 md:flex-row md:items-center md:justify-between"
             >
               <div>
                 <p className="font-medium text-white">{file.name}</p>

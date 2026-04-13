@@ -52,7 +52,7 @@ export function LoginForm() {
             type="email"
             autoComplete="email"
             required
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
             placeholder="Email"
           />
           <input
@@ -60,7 +60,7 @@ export function LoginForm() {
             type="password"
             autoComplete="current-password"
             required
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+            className="w-full rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
             placeholder="Password"
           />
           <SubmitButton />

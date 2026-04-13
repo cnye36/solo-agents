@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   eyebrow: {
-    color: colors.accent,
+    color: colors.textMuted,
     textTransform: "uppercase",
     letterSpacing: 1.4,
     fontSize: 12,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   info: {
-    color: "#d8b4fe",
+    color: colors.textSoft,
     fontSize: 14,
     lineHeight: 20,
   },

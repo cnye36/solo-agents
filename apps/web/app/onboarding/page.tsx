@@ -19,15 +19,15 @@ export default function OnboardingPage() {
         >
           <div className="grid gap-4 md:grid-cols-2">
             <input
-              className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+              className="rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
               placeholder="What do you want help with most?"
             />
             <input
-              className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none"
+              className="rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none"
               placeholder="Preferred tone"
             />
             <input
-              className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none md:col-span-2"
+              className="rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm text-white outline-none md:col-span-2"
               placeholder="Optional: connected app or first file to add"
             />
           </div>
