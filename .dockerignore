@@ -1,0 +1,24 @@
+# Dependencies (reinstalled in Docker)
+node_modules
+**/node_modules
+.pnpm-store
+
+# Build outputs (rebuilt in Docker)
+**/dist
+apps/web/.next
+apps/mobile/.expo
+
+# Environment files (set via Docker env vars)
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Dev/IDE
+.git
+.vscode
+.idea
+**/*.log
+
+# Not needed for API
+apps/mobile
+apps/web
