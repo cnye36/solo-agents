@@ -228,9 +228,13 @@ export function ChatScreen({ assistantName, initialThreads }: ChatScreenProps) {
             style={[styles.sendButton, (!draft.trim() || isSending) && styles.sendButtonDisabled]}
           >
             {isSending ? (
-              <ActivityIndicator size="small" color={colors.text} />
+              <ActivityIndicator size="small" color={colors.textMuted} />
             ) : (
-              <Ionicons name="arrow-up" size={20} color={colors.text} />
+              <Ionicons
+                name="arrow-up"
+                size={20}
+                color={!draft.trim() ? colors.textMuted : colors.onPrimary}
+              />
             )}
           </TouchableOpacity>
         </View>
@@ -372,7 +376,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: colors.accentMuted,
     borderWidth: 2,
-    borderColor: colors.accent,
+    borderColor: colors.borderStrong,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -501,7 +505,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   userBubble: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.userBubble,
     borderBottomRightRadius: 4,
   },
   asstBubble: {
@@ -511,17 +515,17 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
   },
   userBubbleText: {
-    color: "#fff",
+    color: colors.userBubbleText,
     fontSize: 15,
     lineHeight: 22,
   },
   bubbleTime: {
-    color: "rgba(148, 163, 184, 0.6)",
+    color: "rgba(161, 161, 170, 0.65)",
     fontSize: 11,
     marginTop: 2,
   },
   bubbleTimeUser: {
-    color: "rgba(255,255,255,0.55)",
+    color: "rgba(250, 250, 250, 0.55)",
     textAlign: "right",
   },
 
@@ -536,8 +540,8 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: colors.accent,
-    opacity: 0.7,
+    backgroundColor: colors.textMuted,
+    opacity: 0.85,
   },
   streamDot1: {},
   streamDot2: { opacity: 0.5 },
@@ -552,7 +556,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     borderTopWidth: 1,
     borderTopColor: colors.border,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surfaceMuted,
     paddingBottom: Platform.OS === "ios" ? spacing.md : spacing.sm,
   },
   composerInput: {
@@ -562,7 +566,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.lg,
     borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceMuted,
     color: colors.text,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
@@ -573,7 +577,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
@@ -666,7 +670,7 @@ const markdownStyles = {
   ordered_list: { color: colors.textSoft },
   code_inline: {
     backgroundColor: colors.surfaceMuted,
-    color: "#c4b5fd",
+    color: colors.textSoft,
     paddingHorizontal: 4,
     borderRadius: 4,
     fontSize: 13,
@@ -688,9 +692,9 @@ const markdownStyles = {
     fontSize: 13,
     fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
   },
-  link: { color: "#c4b5fd" },
+  link: { color: colors.textSoft },
   blockquote: {
-    borderLeftColor: colors.accent,
+    borderLeftColor: "#71717a",
     borderLeftWidth: 3,
     paddingLeft: spacing.md,
     opacity: 0.85,

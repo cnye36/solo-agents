@@ -77,7 +77,11 @@ export function PrimaryButton({
         pressed && !(disabled || loading) ? styles.buttonPressed : null,
       ]}
     >
-      {loading ? <ActivityIndicator color={colors.text} /> : <Text style={styles.primaryButtonText}>{label}</Text>}
+      {loading ? (
+        <ActivityIndicator color={colors.onPrimary} />
+      ) : (
+        <Text style={styles.primaryButtonText}>{label}</Text>
+      )}
     </Pressable>
   );
 }
@@ -197,13 +201,13 @@ const styles = StyleSheet.create({
   primaryButton: {
     minHeight: 48,
     borderRadius: radii.pill,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: spacing.lg,
   },
   primaryButtonText: {
-    color: colors.text,
+    color: colors.onPrimary,
     fontSize: 15,
     fontWeight: "700",
   },

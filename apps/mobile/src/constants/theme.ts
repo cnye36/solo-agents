@@ -1,15 +1,26 @@
+/**
+ * Zinc-neutral dark theme (aligned with apps/web `globals.css`).
+ * No slate/blue-gray or cyan cast; violet removed in favor of zinc + white primary actions.
+ */
 export const colors = {
-  background: "#060816",
-  surface: "#101425",
-  surfaceElevated: "#171d33",
-  surfaceMuted: "#0c1020",
-  border: "rgba(148, 163, 184, 0.18)",
-  borderStrong: "rgba(139, 92, 246, 0.32)",
-  text: "#f8fafc",
-  textMuted: "#94a3b8",
-  textSoft: "#cbd5e1",
-  accent: "#8b5cf6",
-  accentMuted: "rgba(139, 92, 246, 0.18)",
+  background: "#09090b",
+  surface: "#27272a",
+  surfaceElevated: "#3f3f46",
+  surfaceMuted: "#18181b",
+  border: "rgba(161, 161, 170, 0.14)",
+  borderStrong: "rgba(255, 255, 255, 0.12)",
+  text: "#fafafa",
+  textMuted: "#a1a1aa",
+  textSoft: "#d4d4d8",
+  /** Icons, subtle highlights, active thread tint (zinc-100) */
+  accent: "#e4e4e7",
+  accentMuted: "rgba(244, 244, 245, 0.1)",
+  /** Primary filled controls (matches web white CTAs) */
+  primary: "#fafafa",
+  onPrimary: "#18181b",
+  /** User chat bubble (zinc-600) */
+  userBubble: "#52525b",
+  userBubbleText: "#fafafa",
   success: "#34d399",
   warning: "#f59e0b",
   danger: "#fb7185",
