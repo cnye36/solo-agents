@@ -44,7 +44,7 @@ function renderInline(text: string): ReactNode[] {
       nodes.push(
         <code
           key={`${matchIndex}-${fullMatch}`}
-          className="rounded-md border border-white/10 bg-black/30 px-1.5 py-0.5 font-mono text-[0.92em] text-slate-100"
+          className="rounded-md border border-white/10 bg-black/30 px-1.5 py-0.5 font-mono text-[0.92em] text-zinc-100"
         >
           {match[5]}
         </code>,
@@ -57,7 +57,7 @@ function renderInline(text: string): ReactNode[] {
       );
     } else if (match[9]) {
       nodes.push(
-        <em key={`${matchIndex}-${fullMatch}`} className="italic text-slate-100">
+        <em key={`${matchIndex}-${fullMatch}`} className="italic text-zinc-100">
           {match[9]}
         </em>,
       );
@@ -180,7 +180,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const blocks = parseBlocks(content);
 
   return (
-    <div className="space-y-4 text-[15px] leading-7 text-slate-200">
+    <div className="space-y-4 text-[15px] leading-7 text-zinc-200">
       {blocks.map((block, index) => {
         if (block.type === "code") {
           return (
@@ -188,10 +188,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               key={`code-${index}`}
               className="overflow-hidden rounded-2xl border border-white/10 bg-[#09101d]"
             >
-              <div className="flex items-center justify-between border-b border-white/8 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-slate-400">
+              <div className="flex items-center justify-between border-b border-white/8 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-zinc-400">
                 <span>{block.language || "Code"}</span>
               </div>
-              <pre className="overflow-x-auto px-4 py-4 text-sm text-slate-100">
+              <pre className="overflow-x-auto px-4 py-4 text-sm text-zinc-100">
                 <code>{block.code}</code>
               </pre>
             </div>
@@ -231,7 +231,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           return (
             <blockquote
               key={`quote-${index}`}
-              className="rounded-r-2xl border-l-2 border-[var(--accent)] bg-white/[0.03] px-4 py-3 text-slate-300"
+              className="rounded-r-2xl border-l-2 border-[var(--accent)] bg-white/[0.03] px-4 py-3 text-zinc-300"
             >
               {block.lines.map((line, lineIndex) => (
                 <p key={`quote-line-${index}-${lineIndex}`}>
@@ -243,7 +243,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         }
 
         return (
-          <p key={`paragraph-${index}`} className="text-slate-200">
+          <p key={`paragraph-${index}`} className="text-zinc-200">
             {renderInline(block.text)}
           </p>
         );

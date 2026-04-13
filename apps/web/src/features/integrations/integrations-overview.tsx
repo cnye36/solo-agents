@@ -76,7 +76,7 @@ function StatusPill({ app }: { app: IntegrationCatalogItem }) {
       ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-200"
       : app.connection?.status === "needs_reauth"
         ? "border-amber-400/20 bg-amber-500/10 text-amber-200"
-        : "border-white/10 bg-white/[0.04] text-slate-300";
+        : "border-white/10 bg-white/[0.04] text-zinc-300";
 
   return (
     <span
@@ -99,7 +99,7 @@ function IntegrationLogo({ app }: { app: IntegrationCatalogItem }) {
   }
 
   return (
-    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-sm font-semibold uppercase tracking-[0.18em] text-slate-300">
+    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">
       {app.name.slice(0, 2)}
     </div>
   );
@@ -117,12 +117,12 @@ function AuthFields({
   if (authType === "api_key") {
     return (
       <label className="block">
-        <span className="mb-2 block text-sm text-slate-300">API key</span>
+        <span className="mb-2 block text-sm text-zinc-300">API key</span>
         <input
           type="password"
           value={formState.apiKey}
           onChange={(event) => onChange("apiKey", event.target.value)}
-          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500"
+          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
           placeholder="Paste the API key"
         />
       </label>
@@ -132,12 +132,12 @@ function AuthFields({
   if (authType === "bearer") {
     return (
       <label className="block">
-        <span className="mb-2 block text-sm text-slate-300">Access token</span>
+        <span className="mb-2 block text-sm text-zinc-300">Access token</span>
         <input
           type="password"
           value={formState.accessToken}
           onChange={(event) => onChange("accessToken", event.target.value)}
-          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500"
+          className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
           placeholder="Paste the bearer token"
         />
       </label>
@@ -148,26 +148,26 @@ function AuthFields({
     return (
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-2 block text-sm text-slate-300">Username</span>
+          <span className="mb-2 block text-sm text-zinc-300">Username</span>
           <input
             type="text"
             value={formState.basicAuthUsername}
             onChange={(event) =>
               onChange("basicAuthUsername", event.target.value)
             }
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500"
+            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
             placeholder="Username"
           />
         </label>
         <label className="block">
-          <span className="mb-2 block text-sm text-slate-300">Password</span>
+          <span className="mb-2 block text-sm text-zinc-300">Password</span>
           <input
             type="password"
             value={formState.basicAuthPassword}
             onChange={(event) =>
               onChange("basicAuthPassword", event.target.value)
             }
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500"
+            className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
             placeholder="Password"
           />
         </label>
@@ -177,7 +177,7 @@ function AuthFields({
 
   if (authType === "none") {
     return (
-      <p className="text-sm leading-6 text-slate-300">
+      <p className="text-sm leading-6 text-zinc-300">
         This integration does not require credentials. Save to enable it for
         your workspace.
       </p>
@@ -185,7 +185,7 @@ function AuthFields({
   }
 
   return (
-    <p className="text-sm leading-6 text-slate-300">
+    <p className="text-sm leading-6 text-zinc-300">
       OAuth-based connections are the next step in Solo Agents. The catalog and
       connection state are now wired; provider redirects and callbacks come
       next.
@@ -333,7 +333,7 @@ export function IntegrationsOverview({
             setCurrentPage(1);
           }}
           placeholder="Search apps"
-          className="w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500"
+          className="w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
         />
       </div>
 
@@ -357,7 +357,7 @@ export function IntegrationsOverview({
                     <h2 className="truncate text-lg font-medium text-white">
                       {app.name}
                     </h2>
-                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-300">
                       {app.description}
                     </p>
                   </div>
@@ -366,14 +366,14 @@ export function IntegrationsOverview({
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
                   {sourceLabel(app.source)}
                 </span>
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
                   {authTypeLabel(app.authType)}
                 </span>
                 {app.actionCount > 0 ? (
-                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
                     {app.actionCount} actions
                   </span>
                 ) : null}
@@ -383,14 +383,14 @@ export function IntegrationsOverview({
                 {app.source === "mcp" ? (
                   <Link
                     href={integrationHref(app)}
-                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950 transition hover:bg-slate-100"
+                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
                   >
                     View setup
                   </Link>
                 ) : app.authType === "oauth2" ? (
                   <Link
                     href={integrationHref(app)}
-                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950 transition hover:bg-slate-100"
+                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
                   >
                     Open
                   </Link>
@@ -398,7 +398,7 @@ export function IntegrationsOverview({
                   <button
                     type="button"
                     onClick={() => openConnectionModal(app)}
-                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950 transition hover:bg-slate-100"
+                    className="rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
                   >
                     {app.connection ? "Manage" : "Connect"}
                   </button>
@@ -406,7 +406,7 @@ export function IntegrationsOverview({
 
                 <Link
                   href={integrationHref(app)}
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04]"
+                  className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04]"
                 >
                   Details
                 </Link>
@@ -416,7 +416,7 @@ export function IntegrationsOverview({
                     type="button"
                     onClick={() => handleDisconnect(app)}
                     disabled={isPending || app.source === "mcp"}
-                    className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:opacity-60"
+                    className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:opacity-60"
                   >
                     Disconnect
                   </button>
@@ -428,7 +428,7 @@ export function IntegrationsOverview({
       </div>
 
       <div className="flex shrink-0 items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-        <p className="text-sm text-slate-300">
+        <p className="text-sm text-zinc-300">
           Showing {paginatedApps.length ? (safeCurrentPage - 1) * ITEMS_PER_PAGE + 1 : 0}
           {" "}-{" "}
           {(safeCurrentPage - 1) * ITEMS_PER_PAGE + paginatedApps.length} of{" "}
@@ -439,11 +439,11 @@ export function IntegrationsOverview({
             type="button"
             onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
             disabled={safeCurrentPage === 1}
-            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </button>
-          <div className="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300">
+          <div className="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-300">
             Page {safeCurrentPage} / {totalPages}
           </div>
           <button
@@ -452,7 +452,7 @@ export function IntegrationsOverview({
               setCurrentPage((page) => Math.min(totalPages, page + 1))
             }
             disabled={safeCurrentPage === totalPages}
-            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </button>
@@ -464,7 +464,7 @@ export function IntegrationsOverview({
           <div className="w-full max-w-2xl rounded-[32px] border border-white/10 bg-[var(--background-soft)] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
                   {authTypeLabel(selectedApp.authType)}
                 </p>
                 <h2 className="mt-2 text-2xl font-medium text-white">
@@ -474,7 +474,7 @@ export function IntegrationsOverview({
               <button
                 type="button"
                 onClick={closeConnectionModal}
-                className="rounded-full border border-white/10 p-2 text-slate-300 transition hover:border-white/20 hover:bg-white/[0.04]"
+                className="rounded-full border border-white/10 p-2 text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.04]"
               >
                 <CloseIcon className="h-4 w-4" />
               </button>
@@ -493,14 +493,14 @@ export function IntegrationsOverview({
                 type="button"
                 onClick={handleConnectSubmit}
                 disabled={isPending || selectedApp.authType === "oauth2"}
-                className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-slate-950 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-slate-500"
+                className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-zinc-500"
               >
                 {selectedApp.connection ? "Save changes" : "Connect"}
               </button>
               <button
                 type="button"
                 onClick={closeConnectionModal}
-                className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-slate-200"
+                className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-zinc-200"
               >
                 Cancel
               </button>

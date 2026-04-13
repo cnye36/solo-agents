@@ -12,7 +12,7 @@ function SubmitButton() {
   return (
     <button
       type="submit"
-      className="w-full rounded-full bg-white px-4 py-3 text-sm font-medium text-slate-950 disabled:opacity-60"
+      className="w-full rounded-full bg-white px-4 py-3 text-sm font-medium text-zinc-950 disabled:opacity-60"
       disabled={pending}
     >
       {pending ? "Creating account…" : "Create account"}
@@ -80,7 +80,7 @@ export function SignupForm() {
           />
           <SubmitButton />
         </form>
-        <p className="mt-4 text-sm text-slate-300">
+        <p className="mt-4 text-sm text-zinc-300">
           Already have an account?{" "}
           <Link className="text-white underline" href="/login">
             Sign in

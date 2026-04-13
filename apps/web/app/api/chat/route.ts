@@ -1,10 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { resolveServerApiBaseUrl } from "@/lib/api/base-url";
 import { cookies } from "next/headers";
-
-const API_BASE_URL =
-  process.env.API_BASE_URL?.replace(/\/$/, "") ??
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ??
-  "http://localhost:4000";
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
@@ -42,11 +38,12 @@ export async function POST(request: Request) {
   }
 
   const payload = await request.json();
+  const apiBaseUrl = resolveServerApiBaseUrl();
 
   let response: Response;
 
   try {
-    response = await fetch(`${API_BASE_URL}/chat/send`, {
+    response = await fetch(`${apiBaseUrl}/chat/send`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${session.access_token}`,
@@ -57,7 +54,7 @@ export async function POST(request: Request) {
     });
   } catch {
     return Response.json(
-      { error: `Unable to reach the backend chat API at ${API_BASE_URL}.` },
+      { error: `Unable to reach the backend chat API at ${apiBaseUrl}.` },
       { status: 502 },
     );
   }

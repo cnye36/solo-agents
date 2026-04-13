@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { requireUser } from "@/lib/auth";
 import {
-  getActiveWorkspaceId,
   getConnectedApps,
   getIntegrationCatalog,
   getIntegrationDetail,
   getMcpCatalog,
 } from "@/services/platform-data";
+import { ensureSoloWorkspaceId } from "@/services/solo-workspace";
 import { supabaseAdmin } from "@/clients/supabase-admin";
 
 export const integrationRoutes = new Hono();
@@ -18,7 +18,7 @@ integrationRoutes.get("/", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
   const apps = await getConnectedApps(user.id, workspaceId);
 
   return c.json({ apps });
@@ -31,7 +31,7 @@ integrationRoutes.get("/catalog", async (c) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
   const [apiApps, mcpApps] = await Promise.all([
     getIntegrationCatalog(user.id, workspaceId),
     getMcpCatalog(user.id, workspaceId),
@@ -57,7 +57,7 @@ integrationRoutes.get("/catalog/:id", async (c) => {
     return c.json({ error: "Integration id is required." }, 400);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
   const integration = await getIntegrationDetail(user.id, workspaceId, id);
 
   if (!integration) {
@@ -80,11 +80,7 @@ integrationRoutes.get("/connect", async (c) => {
     return c.json({ error: "integrationId is required." }, 400);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
-
-  if (!workspaceId) {
-    return c.json({ error: "No active workspace found." }, 400);
-  }
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
 
   const { data: connection } = await supabaseAdmin
     .from("user_integration_connections")
@@ -116,11 +112,7 @@ integrationRoutes.post("/connect", async (c) => {
     return c.json({ error: "integrationId is required." }, 400);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
-
-  if (!workspaceId) {
-    return c.json({ error: "No active workspace found." }, 400);
-  }
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
 
   const { data: integration } = await supabaseAdmin
     .from("integrations")
@@ -229,11 +221,7 @@ integrationRoutes.delete("/connect", async (c) => {
     return c.json({ error: "integrationId is required." }, 400);
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
-
-  if (!workspaceId) {
-    return c.json({ error: "No active workspace found." }, 400);
-  }
+  const workspaceId = await ensureSoloWorkspaceId(user.id);
 
   const { error } = await supabaseAdmin
     .from("user_integration_connections")

@@ -18,7 +18,7 @@ export function StatusBadge({
         tone === "warning" &&
           "border-amber-400/30 bg-amber-400/10 text-amber-100",
         tone === "default" &&
-          "border-white/10 bg-white/5 text-slate-200",
+          "border-white/10 bg-white/5 text-zinc-200",
       )}
     >
       {label}

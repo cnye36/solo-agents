@@ -13,6 +13,7 @@ import type {
 import { Client } from "@langchain/langgraph-sdk";
 import { supabaseAdmin } from "@/clients/supabase-admin";
 import { apiEnv } from "@/lib/env";
+import { ensureSoloWorkspaceId } from "@/services/solo-workspace";
 
 type AssistantRow = {
   assistant_id: string;
@@ -54,29 +55,62 @@ type AuthUser = {
   user_metadata?: Record<string, unknown>;
 };
 
-export async function getActiveWorkspaceId(userId: string) {
-  const { data: profile } = await supabaseAdmin
-    .from("profiles")
-    .select("preferences")
-    .eq("id", userId)
+async function syncSoloAssistantWorkspace(
+  assistantId: string,
+  workspaceId: string,
+): Promise<void> {
+  const { data: row } = await supabaseAdmin
+    .from("assistant")
+    .select("config, metadata")
+    .eq("assistant_id", assistantId)
     .maybeSingle();
 
-  const preferences = (profile?.preferences ?? {}) as {
-    activeWorkspaceId?: string;
-  };
-
-  if (preferences.activeWorkspaceId) {
-    return preferences.activeWorkspaceId;
+  if (!row) {
+    return;
   }
 
-  const { data: membership } = await supabaseAdmin
-    .from("workspace_members")
-    .select("workspace_id")
-    .eq("user_id", userId)
-    .limit(1)
-    .maybeSingle();
+  const prevMeta = (row.metadata ?? {}) as Record<string, unknown>;
+  const metadata = { ...prevMeta, workspace_id: workspaceId };
 
-  return membership?.workspace_id ?? null;
+  const prevConfig = (row.config ?? {}) as {
+    configurable?: Record<string, unknown>;
+  };
+  const configurable = {
+    ...(prevConfig.configurable ?? {}),
+    workspace_id: workspaceId,
+  };
+  const config = { ...prevConfig, configurable };
+
+  const { error: dbError } = await supabaseAdmin
+    .from("assistant")
+    .update({
+      workspace_id: workspaceId,
+      metadata,
+      config,
+    })
+    .eq("assistant_id", assistantId);
+
+  if (dbError) {
+    console.error("[assistant] failed to sync workspace in Supabase", dbError);
+    return;
+  }
+
+  if (!apiEnv.langGraphApiUrl || !apiEnv.langSmithApiKey) {
+    return;
+  }
+
+  try {
+    const langgraphClient = new Client({
+      apiUrl: apiEnv.langGraphApiUrl,
+      apiKey: apiEnv.langSmithApiKey,
+    });
+    await langgraphClient.assistants.update(assistantId, {
+      metadata,
+      config,
+    });
+  } catch (error) {
+    console.error("[assistant] LangGraph workspace sync failed", error);
+  }
 }
 
 async function findSoloAssistant(userId: string) {
@@ -96,9 +130,13 @@ async function findSoloAssistant(userId: string) {
     return null;
   }
 
+  const metaWs = assistant.metadata?.workspace_id;
+  const workspaceFromMeta =
+    typeof metaWs === "string" ? metaWs : null;
+
   return {
     id: assistant.assistant_id,
-    workspaceId: assistant.metadata?.workspace_id ?? null,
+    workspaceId: workspaceFromMeta ?? assistant.workspace_id ?? null,
     teamId: assistant.metadata?.team_id ?? null,
     name: assistant.name?.trim() || SOLO_ASSISTANT_NAME,
     description:
@@ -112,9 +150,18 @@ export async function getPrimaryAssistant(userId: string) {
 }
 
 export async function ensurePrimaryAssistant(user: AuthUser) {
+  const soloWorkspaceId = await ensureSoloWorkspaceId(user.id);
   const existingAssistant = await findSoloAssistant(user.id);
 
   if (existingAssistant) {
+    const currentWs = existingAssistant.workspaceId ?? null;
+    if (currentWs !== soloWorkspaceId) {
+      await syncSoloAssistantWorkspace(existingAssistant.id, soloWorkspaceId);
+      return {
+        ...existingAssistant,
+        workspaceId: soloWorkspaceId,
+      };
+    }
     return existingAssistant;
   }
 
@@ -122,7 +169,7 @@ export async function ensurePrimaryAssistant(user: AuthUser) {
     return null;
   }
 
-  const workspaceId = await getActiveWorkspaceId(user.id);
+  const workspaceId = soloWorkspaceId;
   const langgraphClient = new Client({
     apiUrl: apiEnv.langGraphApiUrl,
     apiKey: apiEnv.langSmithApiKey,
@@ -134,7 +181,7 @@ export async function ensurePrimaryAssistant(user: AuthUser) {
     config: {
       configurable: {
         user_id: user.id,
-        ...(workspaceId ? { workspace_id: workspaceId } : {}),
+        workspace_id: workspaceId,
         model: "gpt-4.1",
         llm: "openai:gpt-4.1",
         model_config: {
@@ -158,7 +205,7 @@ export async function ensurePrimaryAssistant(user: AuthUser) {
     metadata: {
       owner_id: user.id,
       app_source: SOLO_ASSISTANT_APP_SOURCE,
-      ...(workspaceId ? { workspace_id: workspaceId } : {}),
+      workspace_id: workspaceId,
       description: SOLO_ASSISTANT_DESCRIPTION,
       orchestration_description:
         "A single personal assistant for general work, reasoning, writing, research, and execution support.",
@@ -207,7 +254,7 @@ export async function ensurePrimaryAssistant(user: AuthUser) {
     metadata: assistantWithId.metadata as Record<string, unknown>,
     config: assistantWithId.config as Record<string, unknown>,
     version: assistantWithId.version ?? 1,
-    workspace_id: workspaceId || null,
+    workspace_id: workspaceId,
     team_id: null,
   };
 
@@ -688,14 +735,26 @@ export async function getIntegrationDetail(
     };
   }
 
-  const { data: integration } = await supabaseAdmin
+  const integrationSelect =
+    "id, slug, name, description, auth_type, oauth_provider, icon_url, integration_actions(id, name, display_name, description, category)";
+
+  const { data: byId } = await supabaseAdmin
     .from("integrations")
-    .select(
-      "id, slug, name, description, auth_type, oauth_provider, icon_url, integration_actions(id, name, display_name, description, category)",
-    )
-    .or(`id.eq.${normalizedInput},slug.eq.${normalizedInput}`)
+    .select(integrationSelect)
     .eq("is_active", true)
+    .eq("id", normalizedInput)
     .maybeSingle();
+
+  const { data: bySlug } = byId
+    ? { data: null }
+    : await supabaseAdmin
+        .from("integrations")
+        .select(integrationSelect)
+        .eq("is_active", true)
+        .eq("slug", normalizedInput)
+        .maybeSingle();
+
+  const integration = byId ?? bySlug;
 
   if (!integration) {
     return null;
@@ -802,7 +861,8 @@ export async function buildBootstrapData(
     return null;
   }
 
-  const workspaceId = assistant.workspaceId ?? (await getActiveWorkspaceId(user.id));
+  const workspaceId =
+    assistant.workspaceId ?? (await ensureSoloWorkspaceId(user.id));
   const [recentThreads, files, connectedApps, preferences, billing] =
     await Promise.all([
       getRecentThreads(user.id, assistant.id),

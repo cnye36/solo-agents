@@ -158,7 +158,7 @@ The current UI direction is premium, dark, and product-marketing oriented. Exist
 
 - large radii
 - layered dark surfaces
-- muted slate copy
+- muted zinc copy
 - violet accent tokens
 
 Do not replace that with generic white-card SaaS styling unless the task explicitly calls for a redesign. Extend the token system in `globals.css` when possible instead of scattering hardcoded color choices.
@@ -202,6 +202,12 @@ Do not import server-only helpers into client components.
 - this is a central aggregator for assistant, thread, file, integration, billing, and preference data
 - keep this layer typed and incremental
 - avoid embedding large Supabase queries directly in route handlers if they belong here
+
+### `apps/api/src/services/solo-workspace.ts`
+
+- provisions a **Solo-only** workspace per auth user (`profiles.preferences.soloWorkspaceId`) so integrations/MCP stay separate from AffinityBots (`activeWorkspaceId` is not used for Solo BFF routes)
+- do not read Affinity’s active workspace for Solo product data; extend this service if new workspace-scoped Solo features are added
+- `workspaces` inserts must match your Supabase schema (this repo sets **`owner_id`** to the auth user because Affinity’s table requires it)
 
 ### `packages/config/src/index.ts`
 

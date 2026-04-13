@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-
-const API_BASE_URL =
-  process.env.API_BASE_URL?.replace(/\/$/, "") ??
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ??
-  "http://localhost:4000";
+import { resolveServerApiBaseUrl } from "@/lib/api/base-url";
 
 async function getAccessToken() {
   const supabase = await createClient();
@@ -21,9 +17,10 @@ export async function GET(request: Request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const apiBaseUrl = resolveServerApiBaseUrl();
   const url = new URL(request.url);
   const integrationId = url.searchParams.get("integrationId");
-  const targetUrl = new URL(`${API_BASE_URL}/integrations/connect`);
+  const targetUrl = new URL(`${apiBaseUrl}/integrations/connect`);
 
   if (integrationId) {
     targetUrl.searchParams.set("integrationId", integrationId);
@@ -54,8 +51,9 @@ export async function POST(request: Request) {
   }
 
   const body = await request.text();
+  const apiBaseUrl = resolveServerApiBaseUrl();
 
-  const response = await fetch(`${API_BASE_URL}/integrations/connect`, {
+  const response = await fetch(`${apiBaseUrl}/integrations/connect`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -82,9 +80,10 @@ export async function DELETE(request: Request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const apiBaseUrl = resolveServerApiBaseUrl();
   const url = new URL(request.url);
   const integrationId = url.searchParams.get("integrationId");
-  const targetUrl = new URL(`${API_BASE_URL}/integrations/connect`);
+  const targetUrl = new URL(`${apiBaseUrl}/integrations/connect`);
 
   if (integrationId) {
     targetUrl.searchParams.set("integrationId", integrationId);

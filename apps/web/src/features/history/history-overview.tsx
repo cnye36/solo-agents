@@ -32,7 +32,7 @@ export function HistoryOverview({ threads }: HistoryOverviewProps) {
                   {thread.updatedAt}
                 </span>
               </div>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-zinc-300">
                 {thread.preview}
               </p>
             </div>

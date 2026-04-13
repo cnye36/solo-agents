@@ -52,7 +52,7 @@ function IntegrationLogo({ integration }: { integration: IntegrationDetail }) {
   }
 
   return (
-    <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-white/10 bg-white/[0.05] text-lg font-semibold uppercase tracking-[0.18em] text-slate-300">
+    <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-white/10 bg-white/[0.05] text-lg font-semibold uppercase tracking-[0.18em] text-zinc-300">
       {integration.name.slice(0, 2)}
     </div>
   );
@@ -60,7 +60,7 @@ function IntegrationLogo({ integration }: { integration: IntegrationDetail }) {
 
 function StatPill({ label }: { label: string }) {
   return (
-    <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-300">
+    <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-300">
       {label}
     </span>
   );
@@ -82,7 +82,8 @@ function Section({
 }
 
 export default async function IntegrationDetailPage({ params }: PageProps) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = decodeURIComponent(rawId);
 
   let data: Awaited<ReturnType<typeof getIntegrationDetail>>;
 
@@ -99,7 +100,7 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
       <div className="flex items-center justify-between gap-4">
         <Link
           href="/integrations"
-          className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04]"
+          className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04]"
         >
           Back
         </Link>
@@ -108,7 +109,7 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
             href={integration.docsUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/[0.04]"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.04]"
           >
             Open docs
           </a>
@@ -134,20 +135,20 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
               <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">
                 {integration.name}
               </h1>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300">
                 {integration.description}
               </p>
             </div>
           </div>
 
           <div className="min-w-[240px] rounded-[24px] border border-white/10 bg-black/20 p-4">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+            <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
               Connection
             </p>
             <p className="mt-3 text-sm font-medium text-white">
               {statusLabel(integration)}
             </p>
-            <p className="mt-2 text-sm leading-6 text-slate-300">
+            <p className="mt-2 text-sm leading-6 text-zinc-300">
               {integration.connection?.connectedAt
                 ? `Connected ${new Date(integration.connection.connectedAt).toLocaleDateString()}`
                 : integration.source === "mcp"
@@ -171,14 +172,14 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
                     className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4"
                   >
                     <p className="text-sm font-medium text-white">{tool.name}</p>
-                    <p className="mt-1 text-sm leading-6 text-slate-300">
+                    <p className="mt-1 text-sm leading-6 text-zinc-300">
                       {tool.description || "No description available."}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-sm leading-6 text-slate-300">
+              <p className="text-sm leading-6 text-zinc-300">
                 No tools have been discovered for this server in the current workspace yet.
               </p>
             )
@@ -194,19 +195,19 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
                       {action.displayName}
                     </p>
                     {action.category ? (
-                      <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                      <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
                         {action.category}
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-1 text-sm leading-6 text-slate-300">
+                  <p className="mt-1 text-sm leading-6 text-zinc-300">
                     {action.description || "No description available."}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-sm leading-6 text-slate-300">
+            <p className="text-sm leading-6 text-zinc-300">
               No actions are registered for this integration.
             </p>
           )}
@@ -215,7 +216,7 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
         <Section title="Configuration">
           <div className="grid gap-4">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
                 Auth model
               </p>
               <p className="mt-2 text-sm font-medium text-white">
@@ -237,25 +238,25 @@ export default async function IntegrationDetailPage({ params }: PageProps) {
                       </span>
                     ) : null}
                     {field.type ? (
-                      <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-400">
+                      <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
                         {field.type}
                       </span>
                     ) : null}
                   </div>
                   {field.description ? (
-                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                    <p className="mt-2 text-sm leading-6 text-zinc-300">
                       {field.description}
                     </p>
                   ) : null}
                   {field.placeholder ? (
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-zinc-500">
                       Example: {field.placeholder}
                     </p>
                   ) : null}
                 </div>
               ))
             ) : (
-              <p className="text-sm leading-6 text-slate-300">
+              <p className="text-sm leading-6 text-zinc-300">
                 No structured config fields are published for this integration yet.
               </p>
             )}

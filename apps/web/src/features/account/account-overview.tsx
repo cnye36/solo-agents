@@ -25,7 +25,7 @@ export function AccountOverview({
           title="Profile"
           description="Basic account details should be easy to find and edit."
         >
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-slate-200">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-zinc-200">
             <p>
               <span className="text-[var(--muted)]">Email:</span> {email}
             </p>
@@ -44,8 +44,8 @@ export function AccountOverview({
           <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4">
             <p className="text-sm text-[var(--muted)]">Current plan</p>
             <p className="text-xl font-semibold text-white">{planName}</p>
-            <p className="text-sm text-slate-300">{renewalLabel}</p>
-            <button className="mt-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950">
+            <p className="text-sm text-zinc-300">{renewalLabel}</p>
+            <button className="mt-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950">
               Open billing portal
             </button>
           </div>

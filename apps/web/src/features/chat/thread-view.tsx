@@ -70,7 +70,7 @@ export function ThreadView({
                   key={prompt}
                   type="button"
                   onClick={() => onPromptSelect(prompt)}
-                  className="rounded-[24px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left text-sm leading-6 text-slate-200 transition hover:border-white/20 hover:bg-white/[0.06]"
+                  className="rounded-[24px] border border-white/10 bg-white/[0.03] px-4 py-4 text-left text-sm leading-6 text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.06]"
                 >
                   {prompt}
                 </button>

@@ -5,13 +5,13 @@
     "Segoe UI", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono-stack:
     "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --background: #07111f;
+  --background: #1a1c1f;
   --background-soft: #101b2d;
   --surface: rgba(16, 27, 45, 0.78);
   --surface-strong: #162338;
-  --border: rgba(148, 163, 184, 0.16);
-  --foreground: #f8fafc;
-  --muted: #92a3ba;
+  --border: rgba(161, 161, 170, 0.16);
+  --foreground: #fafafa;
+  --muted: #a1a1aa;
   --accent: #4cc9f0;
   --accent-soft: rgba(76, 201, 240, 0.18);
   --accent-violet: #818cf8;
@@ -75,9 +75,12 @@ body {
   font-family: var(--font-sans);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Keep anchors in @layer base so Tailwind utility colors (e.g. text-zinc-950 on CTAs) win over inherit. */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 button,

@@ -15,7 +15,7 @@ export function FilesOverview({ files }: FilesOverviewProps) {
         title="Knowledge for your assistant"
         description="Users should understand this as uploading useful reference material, not managing a retrieval pipeline."
         action={
-          <button className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950">
+          <button className="rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950">
             Upload file
           </button>
         }
@@ -34,7 +34,7 @@ export function FilesOverview({ files }: FilesOverviewProps) {
             >
               <div>
                 <p className="font-medium text-white">{file.name}</p>
-                <p className="mt-1 text-sm text-slate-300">{file.sizeLabel}</p>
+                <p className="mt-1 text-sm text-zinc-300">{file.sizeLabel}</p>
               </div>
               <StatusBadge
                 label={file.status}

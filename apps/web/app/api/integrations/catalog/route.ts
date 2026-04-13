@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-
-const API_BASE_URL =
-  process.env.API_BASE_URL?.replace(/\/$/, "") ??
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ??
-  "http://localhost:4000";
+import { resolveServerApiBaseUrl } from "@/lib/api/base-url";
 
 export async function GET() {
   const supabase = await createClient();
@@ -15,7 +11,8 @@ export async function GET() {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const response = await fetch(`${API_BASE_URL}/integrations/catalog`, {
+  const apiBaseUrl = resolveServerApiBaseUrl();
+  const response = await fetch(`${apiBaseUrl}/integrations/catalog`, {
     headers: {
       Authorization: `Bearer ${session.access_token}`,
     },

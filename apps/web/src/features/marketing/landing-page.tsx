@@ -59,7 +59,7 @@ function IconSecurity() {
 
 function IconPlay() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7 translate-x-0.5">
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7 tranzinc-x-0.5">
       <path d="M8 5.14v14l11-7-11-7z" />
     </svg>
   );
@@ -232,7 +232,7 @@ export function LandingPage() {
         </h1>
 
         {/* Subheadline */}
-        <p className="mx-auto mt-7 max-w-2xl text-xl leading-8 text-slate-400">
+        <p className="mx-auto mt-7 max-w-2xl text-xl leading-8 text-zinc-400">
           One premium workspace where your AI assistant has access to your
           tools, files, and history — so it actually helps you get work done.
         </p>
@@ -254,7 +254,7 @@ export function LandingPage() {
             className="group inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.06] px-8 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.1]"
           >
             Watch the demo
-            <span className="transition group-hover:translate-y-0.5">↓</span>
+            <span className="transition group-hover:tranzinc-y-0.5">↓</span>
           </a>
         </div>
 
@@ -269,7 +269,7 @@ export function LandingPage() {
               <span className="h-3 w-3 rounded-full bg-red-400/50" />
               <span className="h-3 w-3 rounded-full bg-amber-400/50" />
               <span className="h-3 w-3 rounded-full bg-emerald-400/50" />
-              <span className="ml-3 text-xs text-slate-500">
+              <span className="ml-3 text-xs text-zinc-500">
                 {APP_NAME} — Chat workspace
               </span>
             </div>
@@ -278,7 +278,7 @@ export function LandingPage() {
             <div className="flex" style={{ height: "420px" }}>
               {/* Sidebar */}
               <div className="hidden w-56 shrink-0 flex-col gap-1 border-r border-white/[0.06] p-3 md:flex">
-                <p className="mb-2 px-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-600">
+                <p className="mb-2 px-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-600">
                   Threads
                 </p>
                 {[
@@ -292,7 +292,7 @@ export function LandingPage() {
                     className={`rounded-lg px-3 py-2.5 text-left text-xs ${
                       thread.active
                         ? "bg-[var(--accent-soft)] text-cyan-200"
-                        : "text-slate-500 hover:bg-white/5"
+                        : "text-zinc-500 hover:bg-white/5"
                     }`}
                   >
                     {thread.label}
@@ -315,7 +315,7 @@ export function LandingPage() {
                 {/* Messages */}
                 <div className="flex flex-1 flex-col justify-end gap-3 overflow-hidden px-5 py-4">
                   <div className="flex justify-end">
-                    <div className="max-w-[75%] rounded-2xl rounded-tr-md border border-white/10 bg-white/8 px-4 py-3 text-sm text-slate-200">
+                    <div className="max-w-[75%] rounded-2xl rounded-tr-md border border-white/10 bg-white/8 px-4 py-3 text-sm text-zinc-200">
                       Summarize this week&apos;s customer calls and flag the top product risks.
                     </div>
                   </div>
@@ -335,7 +335,7 @@ export function LandingPage() {
                 {/* Composer */}
                 <div className="border-t border-white/[0.06] p-4">
                   <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3">
-                    <span className="flex-1 text-sm text-slate-600">
+                    <span className="flex-1 text-sm text-zinc-600">
                       Ask anything…
                     </span>
                     <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent-soft)]">
@@ -362,7 +362,7 @@ export function LandingPage() {
 
       {/* ── Trust bar ── */}
       <div className="overflow-hidden border-y border-white/[0.05] py-10">
-        <p className="mb-7 text-center text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-600">
+        <p className="mb-7 text-center text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-600">
           Trusted by teams at
         </p>
         <div className="relative flex">
@@ -370,7 +370,7 @@ export function LandingPage() {
             {trustNames.map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                className="whitespace-nowrap text-sm font-semibold text-slate-600 transition hover:text-slate-400"
+                className="whitespace-nowrap text-sm font-semibold text-zinc-600 transition hover:text-zinc-400"
               >
                 {name}
               </span>
@@ -389,7 +389,7 @@ export function LandingPage() {
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Everything your assistant needs
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-slate-400">
+            <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-zinc-400">
               Built around how AI assistants actually work — and how people
               actually use them.
             </p>
@@ -409,7 +409,7 @@ export function LandingPage() {
                 <h3 className="text-base font-semibold text-white">
                   {feature.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-6 text-slate-400">
+                <p className="mt-2.5 text-sm leading-6 text-zinc-400">
                   {feature.description}
                 </p>
               </div>
@@ -428,7 +428,7 @@ export function LandingPage() {
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               See it in action
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-lg text-slate-400">
+            <p className="mx-auto mt-4 max-w-lg text-lg text-zinc-400">
               Watch how a full context-aware AI session actually works from start to finish.
             </p>
           </div>
@@ -473,11 +473,11 @@ export function LandingPage() {
               <p className="text-sm font-semibold text-white">
                 Product walkthrough
               </p>
-              <p className="mt-0.5 text-xs text-slate-500">3-min overview · Coming soon</p>
+              <p className="mt-0.5 text-xs text-zinc-500">3-min overview · Coming soon</p>
             </div>
 
             {/* Duration badge */}
-            <div className="absolute bottom-6 right-6 rounded-lg border border-white/10 bg-black/40 px-2.5 py-1 text-xs font-medium text-slate-400 backdrop-blur">
+            <div className="absolute bottom-6 right-6 rounded-lg border border-white/10 bg-black/40 px-2.5 py-1 text-xs font-medium text-zinc-400 backdrop-blur">
               3:24
             </div>
           </div>
@@ -501,7 +501,7 @@ export function LandingPage() {
               <div key={step.number} className="relative">
                 {/* Connector line */}
                 {i < 2 && (
-                  <div className="absolute left-full top-6 hidden h-px w-full -translate-x-4 bg-gradient-to-r from-white/10 to-transparent md:block" />
+                  <div className="absolute left-full top-6 hidden h-px w-full -tranzinc-x-4 bg-gradient-to-r from-white/10 to-transparent md:block" />
                 )}
 
                 <div
@@ -519,7 +519,7 @@ export function LandingPage() {
                 <h3 className="text-xl font-semibold text-white">
                   {step.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-400">
+                <p className="mt-3 text-sm leading-6 text-zinc-400">
                   {step.description}
                 </p>
               </div>
@@ -549,7 +549,7 @@ export function LandingPage() {
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Ready to get started?
             </h2>
-            <p className="mx-auto mt-5 max-w-md text-lg text-slate-400">
+            <p className="mx-auto mt-5 max-w-md text-lg text-zinc-400">
               Join early access and experience a sharper way to work with AI —
               one that actually knows your context.
             </p>

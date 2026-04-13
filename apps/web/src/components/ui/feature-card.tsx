@@ -15,7 +15,7 @@ export function FeatureCard({
     <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[0_20px_80px_rgba(15,23,42,0.35)] backdrop-blur">
       <div className="space-y-2">
         <h2 className="text-lg font-semibold text-white">{title}</h2>
-        <p className="text-sm leading-6 text-slate-300">{description}</p>
+        <p className="text-sm leading-6 text-zinc-300">{description}</p>
       </div>
       {children ? <div className="mt-5">{children}</div> : null}
       {footer ? (

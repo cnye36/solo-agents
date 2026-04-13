@@ -32,12 +32,12 @@ export default function OnboardingPage() {
             />
           </div>
           <div className="mt-5 flex flex-wrap gap-3">
-            <button className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950">
+            <button className="rounded-full bg-white px-5 py-3 text-sm font-medium text-zinc-950">
               Finish setup
             </button>
             <Link
               href="/chat"
-              className="rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-slate-100"
+              className="rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-zinc-100"
             >
               Skip for now
             </Link>

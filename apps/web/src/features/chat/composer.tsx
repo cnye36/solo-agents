@@ -164,12 +164,12 @@ export function Composer({
                 <p className="truncate text-sm font-medium text-white">
                   {attachment.name}
                 </p>
-                <p className="text-xs text-slate-400">{attachment.sizeLabel}</p>
+                <p className="text-xs text-zinc-400">{attachment.sizeLabel}</p>
               </div>
               <button
                 type="button"
                 onClick={() => removeAttachment(attachment.id)}
-                className="rounded-full p-1 text-slate-400 transition hover:bg-white/5 hover:text-white"
+                className="rounded-full p-1 text-zinc-400 transition hover:bg-white/5 hover:text-white"
                 aria-label={`Remove ${attachment.name}`}
               >
                 <CloseIcon className="h-4 w-4" />
@@ -183,7 +183,7 @@ export function Composer({
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-slate-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
           aria-label="Add attachment"
         >
           <PaperclipIcon className="h-4 w-4" />
@@ -197,7 +197,7 @@ export function Composer({
           onPaste={handlePaste}
           rows={1}
           placeholder="Send a message"
-          className="min-h-[52px] max-h-[220px] flex-1 resize-none rounded-[24px] border border-white/8 bg-black/25 px-4 py-3 text-[15px] leading-6 text-slate-100 outline-none placeholder:text-slate-500"
+          className="min-h-[52px] max-h-[220px] flex-1 resize-none rounded-[24px] border border-white/8 bg-black/25 px-4 py-3 text-[15px] leading-6 text-zinc-100 outline-none placeholder:text-zinc-500"
           disabled={isSending}
         />
 
@@ -205,7 +205,7 @@ export function Composer({
           type="button"
           onClick={handleSendClick}
           disabled={isSending || !draft.trim()}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-slate-500"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-zinc-950 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-zinc-500"
           aria-label="Send message"
         >
           <SendIcon className="h-4 w-4" />

@@ -19,14 +19,14 @@ function AttachmentPill({
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2">
       <p className="truncate text-sm font-medium text-white">{name}</p>
-      <p className="mt-1 text-xs text-slate-400">{sizeLabel}</p>
+      <p className="mt-1 text-xs text-zinc-400">{sizeLabel}</p>
     </div>
   );
 }
 
 function ThinkingDots() {
   return (
-    <div className="flex items-center gap-2 text-slate-400">
+    <div className="flex items-center gap-2 text-zinc-400">
       <span>Thinking</span>
       <span className="flex gap-1">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)] [animation-delay:0ms]" />
@@ -54,7 +54,7 @@ export function Message({ assistantName, message }: MessageProps) {
             <p className="text-sm font-semibold text-white">
               {isUser ? "You" : assistantName}
             </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">
+            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-500">
               {formatMessageTime(message.createdAt)}
             </p>
           </div>
@@ -78,7 +78,7 @@ export function Message({ assistantName, message }: MessageProps) {
         ) : null}
 
         {isUser ? (
-          <p className="whitespace-pre-wrap text-[15px] leading-7 text-slate-100">
+          <p className="whitespace-pre-wrap text-[15px] leading-7 text-zinc-100">
             {message.content}
           </p>
         ) : message.content ? (

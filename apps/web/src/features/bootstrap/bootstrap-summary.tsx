@@ -10,7 +10,7 @@ export function BootstrapSummary({ todos }: BootstrapSummaryProps) {
       title="Backend integration checklist"
       description="These placeholders are intentionally scaffolded around the existing AffinityBots backend so the next step is contract mapping, not a runtime rewrite."
     >
-      <ul className="space-y-3 text-sm leading-6 text-slate-300">
+      <ul className="space-y-3 text-sm leading-6 text-zinc-300">
         {todos.map((todo) => (
           <li
             key={todo}

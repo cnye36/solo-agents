@@ -17,7 +17,7 @@ export function AppSidebar() {
         <h1 className="mt-3 text-xl font-semibold text-white">
           Northstar Assistant
         </h1>
-        <p className="mt-2 text-sm leading-6 text-slate-300">
+        <p className="mt-2 text-sm leading-6 text-zinc-300">
           A simpler assistant layer on top of the existing platform runtime.
         </p>
       </div>
@@ -34,7 +34,7 @@ export function AppSidebar() {
                 "flex items-center rounded-2xl px-4 py-3 text-sm transition",
                 isActive
                   ? "bg-[var(--accent-soft)] text-white"
-                  : "text-slate-300 hover:bg-white/5 hover:text-white",
+                  : "text-zinc-300 hover:bg-white/5 hover:text-white",
               )}
             >
               {item.label}
@@ -45,7 +45,7 @@ export function AppSidebar() {
 
       <div className="mt-auto rounded-3xl border border-white/10 bg-white/5 p-5">
         <p className="text-sm font-medium text-white">Starter plan</p>
-        <p className="mt-2 text-sm leading-6 text-slate-300">
+        <p className="mt-2 text-sm leading-6 text-zinc-300">
           Billing and feature access will connect to the existing subscription
           surfaces next.
         </p>

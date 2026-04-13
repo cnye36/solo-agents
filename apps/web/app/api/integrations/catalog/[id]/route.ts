@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-
-const API_BASE_URL =
-  process.env.API_BASE_URL?.replace(/\/$/, "") ??
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ??
-  "http://localhost:4000";
+import { resolveServerApiBaseUrl } from "@/lib/api/base-url";
 
 type RouteContext = {
   params: Promise<{
@@ -22,8 +18,9 @@ export async function GET(_: Request, context: RouteContext) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const apiBaseUrl = resolveServerApiBaseUrl();
   const response = await fetch(
-    `${API_BASE_URL}/integrations/catalog/${encodeURIComponent(id)}`,
+    `${apiBaseUrl}/integrations/catalog/${encodeURIComponent(id)}`,
     {
       headers: {
         Authorization: `Bearer ${session.access_token}`,
