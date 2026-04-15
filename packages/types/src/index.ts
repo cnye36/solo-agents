@@ -17,6 +17,14 @@ export type ThreadSummary = {
   updatedAt: string;
 };
 
+/** Normalized message from LangGraph thread state (API → web chat UI). */
+export type ThreadChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  createdAt: string;
+};
+
 export type ConnectedApp = {
   id: string;
   name: string;

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import type { AssistantSummary, ThreadSummary } from "@solo-agents/types";
+import { useMemo, useRef, useState } from "react";
+import type { AssistantSummary, ThreadChatMessage, ThreadSummary } from "@solo-agents/types";
 import { trimPreview } from "@/features/chat/chat-format";
 import { Composer } from "@/features/chat/composer";
 import { ThreadSidebar } from "@/features/chat/thread-sidebar";
@@ -11,6 +11,7 @@ import type {
   ChatMessage,
 } from "@/features/chat/chat-types";
 import { sendMessageStream } from "@/lib/api/services/chat-service";
+import { fetchThreadMessages } from "@/lib/api/services/thread-service";
 
 type ChatWorkspaceProps = {
   assistant: AssistantSummary;
@@ -31,6 +32,16 @@ function upsertThread(
   return [nextThread, ...remaining];
 }
 
+function toChatRows(rows: ThreadChatMessage[]): ChatMessage[] {
+  return rows.map((row) => ({
+    id: row.id,
+    role: row.role,
+    content: row.content,
+    createdAt: row.createdAt,
+    status: "complete" as const,
+  }));
+}
+
 export function ChatWorkspace({
   assistant,
   recentThreads,
@@ -41,6 +52,11 @@ export function ChatWorkspace({
   const [draft, setDraft] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLoadingThreadMessages, setIsLoadingThreadMessages] = useState(false);
+  const [threadMessagesError, setThreadMessagesError] = useState<string | null>(
+    null,
+  );
+  const loadThreadAbortRef = useRef<AbortController | null>(null);
 
   const activeThread = useMemo(
     () => threads.find((thread) => thread.id === activeThreadId) ?? null,
@@ -48,16 +64,54 @@ export function ChatWorkspace({
   );
 
   function handleNewThread() {
+    loadThreadAbortRef.current?.abort();
+    setIsLoadingThreadMessages(false);
+    setThreadMessagesError(null);
     setActiveThreadId(null);
     setMessages([]);
     setDraft("");
     setError(null);
   }
 
-  function handleSelectThread(thread: ThreadSummary) {
+  async function handleSelectThread(thread: ThreadSummary) {
+    loadThreadAbortRef.current?.abort();
+    const controller = new AbortController();
+    loadThreadAbortRef.current = controller;
+
     setActiveThreadId(thread.id);
     setMessages([]);
     setError(null);
+    setThreadMessagesError(null);
+    setIsLoadingThreadMessages(true);
+
+    try {
+      const rows = await fetchThreadMessages(thread.id, {
+        signal: controller.signal,
+      });
+
+      if (loadThreadAbortRef.current !== controller) {
+        return;
+      }
+
+      setMessages(toChatRows(rows));
+    } catch (fetchError) {
+      if (fetchError instanceof Error && fetchError.name === "AbortError") {
+        return;
+      }
+
+      const messageText =
+        fetchError instanceof Error
+          ? fetchError.message
+          : "Unable to load this conversation.";
+
+      if (loadThreadAbortRef.current === controller) {
+        setThreadMessagesError(messageText);
+      }
+    } finally {
+      if (loadThreadAbortRef.current === controller) {
+        setIsLoadingThreadMessages(false);
+      }
+    }
   }
 
   async function handleSend({
@@ -202,6 +256,8 @@ export function ChatWorkspace({
             messages={messages}
             suggestedPrompts={suggestedPrompts}
             onPromptSelect={setDraft}
+            isLoadingThreadMessages={isLoadingThreadMessages}
+            threadMessagesError={threadMessagesError}
           />
 
           <Composer

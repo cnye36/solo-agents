@@ -95,10 +95,12 @@ export function ChatScreen({ assistantName, initialThreads }: ChatScreenProps) {
               }),
             );
           },
-          onTextDelta(text) {
+          onTextDelta(text, isFullReplace) {
             setMessages((cur) =>
               cur.map((m) =>
-                m.id === asstMsgId ? { ...m, content: `${m.content}${text}` } : m,
+                m.id === asstMsgId
+                  ? { ...m, content: isFullReplace ? text : `${m.content}${text}` }
+                  : m,
               ),
             );
             setTimeout(() => listRef.current?.scrollToEnd({ animated: false }), 50);

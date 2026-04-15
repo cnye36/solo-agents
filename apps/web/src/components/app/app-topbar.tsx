@@ -1,11 +1,12 @@
-import { signOut } from "@/features/auth/actions";
+import { NavUser } from "@/components/app/nav-user";
 
 type AppTopbarProps = {
   title: string;
   subtitle: string;
+  userEmail?: string | null;
 };
 
-export function AppTopbar({ title, subtitle }: AppTopbarProps) {
+export function AppTopbar({ title, subtitle, userEmail }: AppTopbarProps) {
   return (
     <div className="flex flex-col gap-4 border-b border-[var(--border)] px-5 py-5 md:flex-row md:items-center md:justify-between lg:px-8">
       <div>
@@ -16,18 +17,13 @@ export function AppTopbar({ title, subtitle }: AppTopbarProps) {
         <p className="mt-2 text-sm leading-6 text-zinc-300">{subtitle}</p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="rounded-2xl border border-white/10 bg-zinc-900/40 px-4 py-3 text-sm text-zinc-200">
+      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center md:justify-end">
+        <div className="hidden rounded-2xl border border-white/10 bg-zinc-900/40 px-4 py-3 text-sm text-zinc-200 lg:block">
           Private workspace
         </div>
-        <form action={signOut}>
-          <button
-            type="submit"
-            className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:border-white/20 hover:bg-zinc-800/60 hover:text-white"
-          >
-            Log out
-          </button>
-        </form>
+        <div className="lg:hidden">
+          <NavUser email={userEmail} menuPlacement="down" />
+        </div>
       </div>
     </div>
   );

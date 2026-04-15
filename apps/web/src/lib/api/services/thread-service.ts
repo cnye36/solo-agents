@@ -1,12 +1,41 @@
-import { apiServerRequest } from "@/lib/api/server";
-import type { ThreadSummary } from "@solo-agents/types";
+import type { ThreadChatMessage } from "@solo-agents/types";
 
-export async function listThreads() {
-  return apiServerRequest<{ threads: ThreadSummary[] }>("/threads");
-}
+export async function fetchThreadMessages(
+  threadId: string,
+  init?: { signal?: AbortSignal },
+): Promise<ThreadChatMessage[]> {
+  const response = await fetch(
+    `/api/threads/${encodeURIComponent(threadId)}`,
+    {
+      cache: "no-store",
+      signal: init?.signal,
+    },
+  );
 
-export async function createThread() {
-  return apiServerRequest<{ threadId: string }>("/threads", {
-    method: "POST",
-  } as RequestInit);
+  const raw = await response.text();
+  let parsed: { error?: string; messages?: ThreadChatMessage[] };
+
+  try {
+    parsed = JSON.parse(raw) as { error?: string; messages?: ThreadChatMessage[] };
+  } catch {
+    throw new Error(
+      response.ok
+        ? "Invalid response when loading thread."
+        : raw.trim() || `Unable to load thread (${response.status})`,
+    );
+  }
+
+  if (response.ok) {
+    if (Array.isArray(parsed.messages)) {
+      return parsed.messages;
+    }
+
+    throw new Error("Invalid response when loading thread.");
+  }
+
+  throw new Error(
+    typeof parsed.error === "string"
+      ? parsed.error
+      : `Unable to load thread (${response.status})`,
+  );
 }

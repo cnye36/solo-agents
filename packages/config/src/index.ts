@@ -10,11 +10,8 @@ export const APP_TAGLINE =
 
 export const NAV_ITEMS: NavItem[] = [
   { href: "/chat", label: "Chat" },
-  { href: "/history", label: "History" },
   { href: "/integrations", label: "Apps" },
   { href: "/files", label: "Files" },
-  { href: "/preferences", label: "Preferences" },
-  { href: "/account", label: "Account" },
 ];
 
 export const API_TODOS = {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
 import { APP_DESCRIPTION, APP_NAME } from "@solo-agents/config";
 import { colors, spacing } from "@/constants/theme";
 import { useSession } from "@/providers/session-provider";
@@ -29,12 +30,14 @@ export function AuthScreen() {
       return;
     }
 
-    setInfo(
-      result.info ??
-        (mode === "login"
-          ? "Signed in successfully."
-          : "Account created. You can continue in the app."),
-    );
+    // If sign up requires email confirmation, show the info message
+    if (result.info) {
+      setInfo(result.info);
+      return;
+    }
+
+    // Successful sign in - navigate to the app
+    router.replace("/(tabs)/chat");
   }
 
   return (

@@ -325,6 +325,22 @@ export async function getRecentThreads(
   });
 }
 
+export async function isThreadOwnedByUser(
+  userId: string,
+  assistantId: string,
+  threadId: string,
+): Promise<boolean> {
+  const { data } = await supabaseAdmin
+    .from("thread")
+    .select("thread_id")
+    .eq("thread_id", threadId)
+    .eq("metadata->>assistant_id", assistantId)
+    .eq("metadata->>user_id", userId)
+    .maybeSingle();
+
+  return Boolean(data?.thread_id);
+}
+
 export async function getKnowledgeFiles(
   assistantId: string,
 ): Promise<KnowledgeFile[]> {

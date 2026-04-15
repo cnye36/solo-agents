@@ -20,6 +20,7 @@ export default async function AuthenticatedAppLayout({
     <AppShell
       title="Solo Agents"
       subtitle="A focused workspace for personal AI assistants, persistent threads, and file-aware drafting."
+      userEmail={user.email ?? null}
     >
       {children}
     </AppShell>

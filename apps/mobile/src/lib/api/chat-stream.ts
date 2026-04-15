@@ -8,7 +8,7 @@ export type SendMessagePayload = {
 
 type StreamHandlers = {
   onThreadId?: (threadId: string) => void;
-  onTextDelta?: (text: string) => void;
+  onTextDelta?: (text: string, isFullReplace?: boolean) => void;
 };
 
 type StreamEvent = {
@@ -143,7 +143,18 @@ function extractAssistantTextFromMessage(message: unknown): string {
     ? rawType.slice(0, -"messagechunk".length)
     : rawType;
 
+  // Only accept AI/assistant messages, reject system/human/tool messages
   if (normalizedType !== "ai" && candidate.role !== "assistant") {
+    return "";
+  }
+
+  // Skip system messages or messages with system role
+  if (normalizedType === "system" || candidate.role === "system") {
+    return "";
+  }
+
+  // Skip tool messages
+  if (normalizedType === "tool" || candidate.role === "tool") {
     return "";
   }
 
@@ -152,25 +163,26 @@ function extractAssistantTextFromMessage(message: unknown): string {
 
 function shouldAcceptTupleMetadata(metadata: unknown): boolean {
   if (!metadata || typeof metadata !== "object") {
-    return true;
+    return false; // Require metadata to be present
   }
 
   const record = metadata as Record<string, unknown>;
   const node =
     typeof record.langgraph_node === "string" ? record.langgraph_node : null;
 
-  if (!node) {
-    return true;
+  // Only accept messages from the agent node
+  if (!node || node !== "agent") {
+    return false;
   }
 
-  return node === "agent";
+  return true;
 }
 
-function extractTextFromStreamEvent(streamEvent: StreamEvent): string {
+function extractTextFromStreamEvent(streamEvent: StreamEvent): { text: string; isPartial: boolean } {
   const payload = streamEvent.data.trim();
 
   if (!payload || payload === "[DONE]") {
-    return "";
+    return { text: "", isPartial: false };
   }
 
   try {
@@ -179,29 +191,31 @@ function extractTextFromStreamEvent(streamEvent: StreamEvent): string {
     if (streamEvent.event === "messages") {
       if (Array.isArray(parsed) && parsed.length > 1) {
         if (!shouldAcceptTupleMetadata(parsed[1])) {
-          return "";
+          return { text: "", isPartial: false };
         }
 
-        return extractAssistantTextFromMessage(parsed[0]);
+        return { text: extractAssistantTextFromMessage(parsed[0]), isPartial: false };
       }
 
-      return "";
+      return { text: "", isPartial: false };
     }
 
     if (streamEvent.event === "messages/partial") {
       if (!Array.isArray(parsed)) {
-        return "";
+        return { text: "", isPartial: true };
       }
 
-      return parsed
+      const text = parsed
         .map((message) => extractAssistantTextFromMessage(message))
         .filter(Boolean)
         .join("");
+
+      return { text, isPartial: true };
     }
 
-    return "";
+    return { text: "", isPartial: false };
   } catch {
-    return streamEvent.event === "messages" ? payload : "";
+    return { text: streamEvent.event === "messages" ? payload : "", isPartial: false };
   }
 }
 
@@ -219,10 +233,10 @@ function consumeBlock(block: string, handlers: StreamHandlers) {
     return;
   }
 
-  const text = extractTextFromStreamEvent(streamEvent);
+  const { text, isPartial } = extractTextFromStreamEvent(streamEvent);
 
   if (text) {
-    handlers.onTextDelta?.(text);
+    handlers.onTextDelta?.(text, isPartial);
   }
 }
 
@@ -262,7 +276,19 @@ export async function sendMessageStream(
     handlers.onThreadId?.(threadId);
   }
 
-  if (!response.body) {
+  // React Native may not support streaming - fall back to reading full response
+  if (!response.body || typeof response.body.getReader !== "function") {
+    const fullText = await response.text();
+
+    // Process the full response as SSE blocks
+    const { completeBlocks, remainder } = splitSseBuffer(fullText);
+    for (const block of completeBlocks) {
+      consumeBlock(block, handlers);
+    }
+    // Process any remaining partial block
+    if (remainder.trim()) {
+      consumeBlock(remainder, handlers);
+    }
     return { threadId };
   }
 
